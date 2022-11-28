@@ -1,0 +1,31 @@
+
+  
+#login-btn{
+    margin-bottom: 10px;
+    width: 100%;
+    background: linear-gradient(to left, rgb(0, 0, 0), rgb(231, 240, 255))
+}
+
+.main-div{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-bottom: 150px;
+
+}
+
+.center-div {
+    width: 640px; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+}
+
+.center-div-h1{
+    padding-left: 5rem;
+    padding-right: 5rem;
+    margin-bottom: 1.75rem;
+    font-weight: bold;
+}

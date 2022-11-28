@@ -1,6 +1,13 @@
 import './App.css';
 import React, { Component } from 'react';
-import Navbar from './components/navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import HomePage from './pages/homePage';
+import Login from './login';
+import SignUp from './signup';
+
+
+
 
 class App extends Component{
   constructor(props) {
@@ -13,7 +20,16 @@ class App extends Component{
 	render() {
 		return (
       <>
-      <Navbar/>
+
+        <div className='App'>
+            <Routes>
+                <Route path='/' element={<HomePage/>} exact />   
+                <Route path='login' element={<Login/>} exact />  
+                <Route path='signup' element={<SignUp/>} exact />  
+
+                           
+          </Routes>
+        </div>
     </>
 		);
 	}

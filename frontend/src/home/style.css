@@ -3,8 +3,17 @@
 #login-btn{
     margin-bottom: 10px;
     width: 100%;
-    background: linear-gradient(to left, rgb(0, 0, 0), rgb(231, 240, 255))
+    background: linear-gradient(to left, rgb(0, 0, 0), rgb(231, 240, 255));
+    cursor: pointer;
+
 }
+
+
+#login-btn:hover {
+    background-color: rgb(172, 168, 168);
+    color: #212529;
+  }
+  
 
 .main-div{
     width: 100%;

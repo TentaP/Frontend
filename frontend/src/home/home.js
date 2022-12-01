@@ -1,6 +1,6 @@
-import './style.css'
+import './home-style.css'
 import Container from 'react-bootstrap/Navbar';
-import SearchBox from '../searchBox';
+import SearchBox from '../searchBox/searchBox';
 
 
 

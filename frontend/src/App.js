@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/homePage';
-import Login from './login';
-import SignUp from './signup';
+import Login from './login/login';
+import SignUp from './signup/signup';
 
 
 

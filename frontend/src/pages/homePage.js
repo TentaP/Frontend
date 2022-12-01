@@ -1,5 +1,5 @@
-import Home from "../home";
-import NavBar from "../navbar";
+import Home from "../home/home";
+import NavBar from "../navbar/navbar";
 
 function HomePage(){
     return(

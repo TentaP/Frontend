@@ -9,7 +9,7 @@ import {
   MDBInput,
 }
 from 'mdb-react-ui-kit';
-import './login-style.css'
+import './requestResetPassword-style.css'
 import Button from 'react-bootstrap/Button';
 import NavBar from '../navbar/navbar';
 import axios from 'axios';
@@ -23,19 +23,16 @@ let cookie = cookies.get('jwt')
 
 //https://mdbootstrap.com/docs/react/extended/login-form/
 
-export class Login extends Component {
-
+export class RequestResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      password: "",
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
-
 
   componentDidMount(){
     /**
@@ -58,7 +55,6 @@ export class Login extends Component {
     }
   }
 
-  
 
   handleInputChange(event) {
     event.preventDefault();
@@ -70,28 +66,27 @@ export class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const cookies = new Cookies();
 
     //
     if(this.handleValidation()){
 
     // post login with the data...
-      axios.post('/login', {
+      axios.post('/request_password_reset_token', {
         "email": this.state.email,
-        "password": this.state.password
       })
       .then(function (response) {
-        cookies.set('jwt', response.data.access, {path: '/', expires: new Date(Date.now()+2592000)});
         document.getElementById("detail-msg").innerHTML = response.data.detail;
         $("#detail-msg").show();
         $("#detail-msg").css("color", "green");
         setTimeout(function() { $("#detail-msg").hide(); }, 5000);
-        //history.push('/'); 
-        //window.location.reload();
+        document.getElementById("redirect-msg").innerHTML = "You should be automatically redirected soon"; //TODO add sleep time
+        history.push('/forget_password/reset_password'); 
+        window.location.reload();
+
       })
       .catch(function (error) {
         console.log(error.response.data)
-        document.getElementById("detail-msg").innerHTML = JSON.stringify(error.response.data);
+        document.getElementById("detail-msg").innerHTML = JSON.stringify(error.response.data.detail);
         $("#detail-msg").show();
         $("#detail-msg").css("color", "red");
         setTimeout(function() { $("#detail-msg").hide(); }, 5000);
@@ -106,19 +101,13 @@ export class Login extends Component {
 
   handleValidation(){
     let email = this.state.email;
-    let password = this.state.password;
     let formIsValid = true;
-    
-    if(!password){
-      formIsValid = false;
-    }
 
     if(!email){
       formIsValid = false;
     }
     return formIsValid;
     }
-
 
     render(){
       return (
@@ -133,19 +122,17 @@ export class Login extends Component {
               <MDBCard className='bg-dark text-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '400px'}}>
                 <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
     
-                  <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                  <p className="text-white-50 mb-5">Please enter your login and password!</p>
+                  <h2 className="fw-bold mb-2 text-uppercase" id='h2-titel'>Request Reset Token</h2>
+                  <p className="text-white-50 mb-5" id='h2-titel'>Please enter your email to requset a password reset token!</p>
     
                   <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Email address' id='formControlLg' type="email" name="email" value={this.state.email} onChange={this.handleInputChange} />
-                  <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Password' id='formControlLg' type='password' name="password" value={this.state.password} onChange={this.handleInputChange}/>    
     
-                  <p className="small mb-3 pb-lg-2"><a className="text-white-50" href="forget_password">Forgot password?</a></p>
-                  <Button id='login-btn' variant="light" size="lg" type="submit" >Login</Button>
+                  <Button id='login-btn' variant="light" size="lg" type="submit" >Request a token</Button>
     
                   <div>
-                    <p className="mb-0">Don't have an account? <a href="/signup" className="text-white-50 fw-bold">Sign Up</a></p>
-
+                    
                     <p id='detail-msg' style={{"textAlign": "center"}}></p>
+                    <p id='redirect-msg' style={{"textAlign": "center"}}> </p>
     
                   </div>
                 </MDBCardBody>
@@ -160,4 +147,4 @@ export class Login extends Component {
     }
 }
 
-export default Login;
+export default RequestResetPassword;

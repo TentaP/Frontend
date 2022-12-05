@@ -45,9 +45,10 @@ export class NavBar extends Component{
               <Nav>
                 <Nav.Link  onClick={this.logout}>Logout</Nav.Link>
                 <span className="border border-warning">
-                <img src="..." alt="..." className="rounded-circle"/>
-    
+                <img src="..." alt="..." className="rounded-circle" />
                 </span>
+                <Nav.Link  href="/profile">Profile</Nav.Link>
+    
               </Nav>
             </Navbar.Collapse>
           </Container>

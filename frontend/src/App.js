@@ -7,6 +7,7 @@ import Login from './login/login';
 import SignUp from './signup/signup';
 import RequestResetPassword from './resetPassword/requestResetPassword';
 import ResetPassword from './resetPassword/resetPassword';
+import Universities from './universities/universities';
 
 
 
@@ -21,22 +22,18 @@ class App extends Component{
 
 	render() {
 		return (
-      <>
-
-        <div className='App'>
+        <>
+          <div className='App'>
             <Routes>
                 <Route path='/' element={<HomePage/>} exact />   
                 <Route path='login' element={<Login/>} exact />  
                 <Route path='signup' element={<SignUp/>} exact /> 
+                <Route path='universities' element={<Universities/>} exact /> 
                 <Route path='forget_password' element={<RequestResetPassword/>} exact />  
-                <Route path='forget_password/reset_password' element={<ResetPassword/>} exact />  
-
- 
-
-                           
-          </Routes>
-        </div>
-    </>
+                <Route path='forget_password/reset_password' element={<ResetPassword/>} exact />                  
+            </Routes>
+          </div>
+        </>
 		);
 	}
 }

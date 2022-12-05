@@ -43,10 +43,10 @@ export class NavBar extends Component{
             <Nav className="justify-content-end flex-grow-1 pe-3 py-5">
               </Nav>
               <Nav>
+                <Nav.Link href="/universities">Universities</Nav.Link>
                 <Nav.Link  onClick={this.logout}>Logout</Nav.Link>
                 <span className="border border-warning">
                 <img src="..." alt="..." className="rounded-circle"/>
-    
                 </span>
               </Nav>
             </Navbar.Collapse>
@@ -64,8 +64,9 @@ export class NavBar extends Component{
             <Nav className="justify-content-end flex-grow-1 pe-3 py-5">
               </Nav>
               <Nav>
+                <Nav.Link href="/universities">Universities</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
-                <Nav.Link eventKey={2} href="/signup">Signup</Nav.Link>
+                <Nav.Link href="/signup">Signup</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

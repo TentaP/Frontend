@@ -13,15 +13,15 @@ import ProfileItemsList from './profile-ItemsList';
 const cookies = new Cookies();
 let cookie = cookies.get('jwt')
 
+//TODO: img to base64, post to api in settings, get from api, display img, base
 export class Profile extends Component{
   constructor(props) {
     super(props);
-    // TODO: dynaimcally get the user info from the shared state
       this.state = {
         name: "test",
         email: "test@test.com",
-        image: "https://www.w3schools.com/howto/img_avatar.png",
         currentMenu: "Settings",
+        //avatar64: "",
       }
   }
 
@@ -32,24 +32,41 @@ export class Profile extends Component{
     if(cookie) {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res)=> {
-        console.log(res.data)
         this.setState({
           name: res.data.username,
           email: res.data.email,
-          image: res.data.image,
         })
       }).catch((error) =>{
         console.log(error)
       });
+
+      /**
+      axios.get('/user/image', {
+        responseType: 'blob',
+      }).then((res)=> {
+
+        var reader = new window.FileReader();
+        reader.readAsDataURL(res.data);
+        reader.onload = () => {
+          this.setState({
+            avatar64: reader.result.split(',')[1]
+          })
+        }
+      }).catch((error) =>{
+        console.log(error)
+      });
+      **/
     }
   }
 
   handleButtonclick = (event) => {
-    event.currentTarget.style.backgroundColor = "blue"
-    this.setState({currentMenu: event.target.id});
+    if (event.target.id !== this.state.currentMenu) {
+      this.setState({currentMenu: event.target.id});
+    }
   }
 
   render() {
+    console.log(this.state.avatar64);
     return (
      <>
       <Container className="main-div"> 
@@ -60,7 +77,7 @@ export class Profile extends Component{
               <p>Profile Info</p>
               <ProfileCard 
                 email={this.state.email}
-                image={this.state.image}
+                image={this.state.avatar64}
                 name={this.state.name}/>
               <Stack gap={1}>
                 <Button onClick={this.handleButtonclick} id="Settings">Settings</Button>

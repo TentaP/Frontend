@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,

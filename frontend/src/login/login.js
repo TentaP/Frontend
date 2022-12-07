@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
@@ -13,7 +12,6 @@ import './login-style.css'
 import Button from 'react-bootstrap/Button';
 import NavBar from '../navbar/navbar';
 import axios from 'axios';
-import history from '../history';
 import $ from 'jquery';
 import Cookies from "universal-cookie";
 

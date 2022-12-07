@@ -1,13 +1,14 @@
 import './App.css';
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import HomePage from './pages/homePage';
+import {Route, Routes, Navigate } from "react-router-dom";
+import HomePage from './home/homePage';
 import Login from './login/login';
 import SignUp from './signup/signup';
 import RequestResetPassword from './resetPassword/requestResetPassword';
 import ResetPassword from './resetPassword/resetPassword';
 import Universities from './universities/universities';
+import Course from './course/course';
 
 
 
@@ -30,7 +31,10 @@ class App extends Component{
                 <Route path='signup' element={<SignUp/>} exact /> 
                 <Route path='universities' element={<Universities/>} exact /> 
                 <Route path='forget_password' element={<RequestResetPassword/>} exact />  
-                <Route path='forget_password/reset_password' element={<ResetPassword/>} exact />                  
+                <Route path='forget_password/reset_password' element={<ResetPassword/>} exact /> 
+                <Route path="universities/:uniName/:courseName" element={<Course/>} exact />
+                <Route path="*" element={<Navigate to="/" />} exact/>
+
             </Routes>
           </div>
         </>

@@ -23,7 +23,9 @@ h1{
 @media screen and (max-width: 991px) {
     #child-left {
         margin: 0 auto;
-        max-width: 100%
+        max-width: 100%;
+        padding: 0;
+
     }  /* show it on small screens */
   }
 
@@ -50,19 +52,10 @@ h1{
 
 @media screen and (max-width: 991px) {
     #child-right {
-        display: none;
-        
-    }  /* show it on small screens */
-  }
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        padding: 0;
 
-
-#vl {
-    border: 3px solid #212529;
-    border-radius: 25px;
-}
-
-@media screen and (max-width: 991px) {
-    #vl {
-        border: none;
     }  /* show it on small screens */
   }

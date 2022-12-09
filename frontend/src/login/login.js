@@ -12,6 +12,7 @@ import './login-style.css'
 import Button from 'react-bootstrap/Button';
 import NavBar from '../navbar/navbar';
 import axios from 'axios';
+import history from '../history';
 import $ from 'jquery';
 import Cookies from "universal-cookie";
 
@@ -43,6 +44,8 @@ export class Login extends Component {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res)=> {
         console.log(res.data)
+        history.push('/profile');
+        window.location.reload();
         if (res.data.is_superuser){
           console.log("is_superuser") //TODO
         }else if (res.data.is_admin){
@@ -84,8 +87,8 @@ export class Login extends Component {
         $("#detail-msg").show();
         $("#detail-msg").css("color", "green");
         setTimeout(function() { $("#detail-msg").hide(); }, 5000);
-        //history.push('/'); 
-        //window.location.reload();
+        history.push('/profile');
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error.response.data)

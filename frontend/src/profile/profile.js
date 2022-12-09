@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../home/home-style.css'
+import './profile-style.css';
+
 import Cookies from 'universal-cookie';
 import Container from 'react-bootstrap/Navbar';
 import Stack from 'react-bootstrap/Stack';
@@ -14,29 +15,31 @@ const cookies = new Cookies();
 let cookie = cookies.get('jwt')
 
 //TODO: img to base64, post to api in settings, get from api, display img, base
-export class Profile extends Component{
+export class Profile extends Component {
   constructor(props) {
     super(props);
-      this.state = {
-        name: "test",
-        email: "test@test.com",
-        currentMenu: "Settings",
-        //avatar64: "",
-      }
+    this.state = {
+      name: "test",
+      email: "test@test.com",
+      currentMenu: "Settings",
+      //avatar64: "",
+    }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     /**
      * check if the browser have a cookie to use it as header when requesting user information
      */
-    if(cookie) {
+    if (cookie) {
       axios.defaults.withCredentials = true;
-      axios.get('/user').then((res)=> {
+      axios.get('/user').then((res) => {
+
         this.setState({
           name: res.data.username,
           email: res.data.email,
         })
-      }).catch((error) =>{
+      }).catch((error) => {
+
         console.log(error)
       });
 
@@ -61,41 +64,39 @@ export class Profile extends Component{
 
   handleButtonclick = (event) => {
     if (event.target.id !== this.state.currentMenu) {
-      this.setState({currentMenu: event.target.id});
+      this.setState({ currentMenu: event.target.id });
+
     }
   }
 
   render() {
     console.log(this.state.avatar64);
     return (
+
+      <>
+        <div id="container">
+          <div id="child-left">
+
+            <ProfileCard
+              image={this.state.avatar64}
+              email={this.state.email}
+              name={this.state.name} />
+            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
+            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
+            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
+            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
+
+          </div>
+          <div id="child-right" hidden={true}>
+            <h1> TEST </h1>
+
+          </div>
+        </div>
+      </>
      <>
-      <Container className="main-div"> 
-        <Container className='center-div'>
-          <Stack direction="horizontal" gap={6} >
-            <Stack gap={1}>
 
-              <p>Profile Info</p>
-              <ProfileCard 
-                email={this.state.email}
-                image={this.state.avatar64}
-                name={this.state.name}/>
-              <Stack gap={1}>
-                <Button onClick={this.handleButtonclick} id="Settings">Settings</Button>
-                <Button onClick={this.handleButtonclick} id="Courses">Courses</Button>
-                <Button onClick={this.handleButtonclick} id="Files">Files</Button>
-                <Button onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
-              </Stack>
-            </Stack>
-
-            <ProfileItemsList/>
-          </Stack>
-        </Container>
-      </Container>
-    </>
     );
   }
 }
 
 export default Profile;
-
-      

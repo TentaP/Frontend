@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
+import './profile-style.css';
+
 
 export class ProfileInfoList extends Component{
   constructor(props) {

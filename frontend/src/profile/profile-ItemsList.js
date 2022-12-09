@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Button from 'react-bootstrap/Button';
 import Pagination from 'react-bootstrap/Pagination';
+import './profile-style.css';
 
 export class ProfileList extends Component {
   // TODO: Fill list with items specified by ProfileItemsList

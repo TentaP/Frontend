@@ -1,17 +1,92 @@
+h1 {
+    color: white;
+}
 
-.main-div{
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    padding-left: 5rem;
-    padding-right: 5rem;
-    padding-bottom: 150px;
+#container {
+    display: flex;
+    /* <---------- required */
+    padding: 1rem;
+}
+
+@media screen and (max-width: 991px) {
+    #container {
+        display: block;
+    }
+}
+
+
+#child-left {
+    flex: 1;
+    /* <---------------- required */
+    padding: 1rem;
+    text-align: center;
+    max-width: 25%;
+}
+
+@media screen and (max-width: 991px) {
+    #child-left {
+        margin: 0 auto;
+        max-width: 100%;
+        padding: 0;
+
+    }
+
+    /* show it on small screens */
+}
+
+#child-left button {
+    background-color: #212529;
+    color: white;
+    /* White text */
+    padding: 10px 24px;
+    /* Some padding */
+    cursor: pointer;
+    /* Pointer/hand icon */
+    width: 75%;
+    /* Set a width if needed */
+    margin: 10px auto;
+    display: block;
+    /* Make the buttons appear below each other */
 
 }
 
-.center-div {
-    width: 640px; /* Can be in percentage also. */
-    height: auto;
-    margin: 0 auto;
-    position: relative;
+#child-left button:hover {
+    color: rgb(136, 138, 140);
 }
+
+#child-right {
+    flex: 2;
+    /* <---------------- required */
+    padding: 1rem;
+    text-align: center;
+    max-width: 75%;
+}
+
+@media screen and (max-width: 991px) {
+    #child-right {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        padding: 0;
+
+    }
+
+    /* show it on small screens */
+}
+
+#profileCard {
+    background-color: #212529;
+    color: white;
+    /* White text */
+    padding: 10px 24px;
+    /* Some padding */
+    cursor: pointer;
+    /* Pointer/hand icon */
+    width: 75%;
+    /* Set a width if needed */
+    margin: 10px auto;
+    display: block;
+    /* Make the buttons appear below each other */
+
+}
+

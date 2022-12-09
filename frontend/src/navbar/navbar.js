@@ -40,6 +40,8 @@ export class NavBar extends Component {
                 <span className="border border-warning">
                   <Nav.Link href="/profile"><img src="..." alt="..." className="rounded-circle" /></Nav.Link>
                 </span>
+                <Nav.Link  href="/profile">Profile</Nav.Link>
+    
               </Nav>
             </Navbar.Collapse>
           </Container>

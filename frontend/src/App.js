@@ -9,9 +9,11 @@ import RequestResetPassword from './resetPassword/requestResetPassword';
 import ResetPassword from './resetPassword/resetPassword';
 import Universities from './universities/universities';
 import Course from './course/course';
+import ProfilePage from './profile/profilePage';
 
 
-
+//https://stackoverflow.com/questions/38901106/how-to-make-a-shared-state-between-two-react-components
+// to Share state between components
 
 class App extends Component{
   constructor(props) {
@@ -34,6 +36,7 @@ class App extends Component{
                 <Route path='forget_password/reset_password' element={<ResetPassword/>} exact /> 
                 <Route path="universities/:uniName/:courseName" element={<Course/>} exact />
                 <Route path="*" element={<Navigate to="/" />} exact/>
+                <Route path='profile' element={<ProfilePage/>} exact />  
 
             </Routes>
           </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './profile-style.css';
+
 import Cookies from 'universal-cookie';
 import Container from 'react-bootstrap/Navbar';
 import Stack from 'react-bootstrap/Stack';
@@ -32,11 +33,13 @@ export class Profile extends Component {
     if (cookie) {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res) => {
+
         this.setState({
           name: res.data.username,
           email: res.data.email,
         })
       }).catch((error) => {
+
         console.log(error)
       });
 
@@ -62,6 +65,7 @@ export class Profile extends Component {
   handleButtonclick = (event) => {
     if (event.target.id !== this.state.currentMenu) {
       this.setState({ currentMenu: event.target.id });
+
     }
   }
 
@@ -89,10 +93,10 @@ export class Profile extends Component {
           </div>
         </div>
       </>
+     <>
+
     );
   }
 }
 
 export default Profile;
-
-

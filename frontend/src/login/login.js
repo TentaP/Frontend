@@ -43,12 +43,12 @@ export class Login extends Component {
     if (cookie) {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res) => {
-        console.log(res.data.id)
+        console.log(res.data)
         if (res.data.super_user || res.data.admin) {
-          history.push(`/profile/admin/${res.data.id}`);
+          history.push(`/profile/admin/${res.data.username}`);
           window.location.reload();
         } else {
-          history.push(`/profile/${res.data.id}`);
+          history.push(`/profile/user/${res.data.username}`);
           window.location.reload();
         }
       }).catch((error) => {
@@ -70,8 +70,6 @@ export class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const cookies = new Cookies();
-
-    //
     if (this.handleValidation()) {
 
       // post login with the data...
@@ -85,14 +83,11 @@ export class Login extends Component {
           $("#detail-msg").show();
           $("#detail-msg").css("color", "green");
           setTimeout(function () { $("#detail-msg").hide(); }, 5000);
-          console.log(response.data.admin)
-          console.log(response.data.super_user)
-
           if (response.data.admin || response.data.super_user) {
-            history.push(`/profile/admin/${response.data.id}`);
+            history.push(`/profile/admin/${response.data.username}`);
             window.location.reload();
           } else {
-            history.push(`/profile/${response.data.id}`);
+            history.push(`/profile/user/${response.data.username}`);
             window.location.reload();
           }
         })

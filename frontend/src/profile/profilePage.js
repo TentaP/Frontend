@@ -3,13 +3,13 @@ import NavBar from "../navbar/navbar";
 import { useParams } from 'react-router-dom';
 
 function ProfilePage() {
-  const { id } = useParams();
+  const { username } = useParams();
 
 
   return (
     <>
       <NavBar />
-      <Profile id={id} />
+      <Profile username={username} />
     </>
   )
 }

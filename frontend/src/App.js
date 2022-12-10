@@ -35,13 +35,14 @@ class App extends Component {
             <Route path='forget_password' element={<RequestResetPassword />} exact />
             <Route path='forget_password/reset_password' element={<ResetPassword />} exact />
             <Route path="universities/:uniName/:courseName" element={<Course />} exact />
-            <Route path='profile/user/:id' element={<ProfilePage />} exact />
-            <Route path='profile/admin/:id' element={<ProfilePage />} exact />
-
+            <Route path='profile/user/:username' element={<ProfilePage />} exact />
+            <Route path='profile/admin/:username' element={<ProfilePage />} exact />
             <Route path="*" element={<Navigate to="/" />} exact />
-
           </Routes>
         </div>
+        <div id="circle" />
+        <div id="circle2" />
+        <div id="circle3" />
       </>
     );
   }

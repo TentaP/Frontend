@@ -1,9 +1,9 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Encode Sans Expanded',
-  sans-serif;
+    sans-serif;
 }
 
 body {
@@ -15,4 +15,61 @@ body {
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+
+#circle {
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  background: linear-gradient(to left, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+  border-radius: 50%;
+  width: 80vh;
+  height: 80vh;
+  z-index: -1000;
+}
+
+#circle2 {
+  bottom: 0px;
+  right: 0px;
+  position: absolute;
+  background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+  border-radius: 50%;
+  width: 50vh;
+  height: 50vh;
+  z-index: -1000;
+}
+
+#circle3 {
+  position: absolute;
+  background: linear-gradient(to left, rgb(108, 43, 178), rgb(48, 108, 212));
+  border-radius: 50%;
+  width: 25vh;
+  height: 25vh;
+  z-index: -1000;
+  margin-left: 50%;
+
+}
+
+/* width */
+::-webkit-scrollbar {
+  background: #212529;
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: rz 0 0 5px rgb(0, 0, 0);
+  border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(rgb(108, 43, 178), rgb(48, 108, 212));
+  ;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, rgb(108, 43, 178), rgb(48, 108, 212));
 }

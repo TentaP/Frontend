@@ -6,9 +6,6 @@ function HomePage() {
         <>
             <NavBar />
             <Home />
-            <div id="circle" />
-            <div id="circle2" />
-            <div id="circle3" />
         </>
     )
 

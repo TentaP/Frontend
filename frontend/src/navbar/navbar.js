@@ -23,7 +23,10 @@ export class NavBar extends Component {
   }
 
   logout() {
-    cookies.remove('jwt')
+    cookies.remove('jwt', { path: '/' })
+    cookies.remove('jwt', { path: '/profile/user/:id' })
+    cookies.remove('jwt', { path: '/profile/admin/:id' })
+    cookies.remove('jwt', { path: '/universities/:uniName/:courseName' })
     history.push("/");
     window.location.reload()
   }

@@ -70,7 +70,6 @@ export class Profile extends Component {
   }
 
   render() {
-    console.log(this.state.avatar64);
     return (
 
       <>
@@ -87,7 +86,7 @@ export class Profile extends Component {
             <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
 
           </div>
-          <div id="child-right" hidden={true}>
+          <div id="child-right" >
             <h1> TEST </h1>
 
           </div>

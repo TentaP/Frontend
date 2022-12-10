@@ -4,6 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Cookies from "universal-cookie";
 import React, { Component } from 'react';
 import history from '../history';
+import logo from '../../src/logo.jpg' // relative path to image 
+import './navbar-style.css';
+
+
 
 
 
@@ -37,11 +41,10 @@ export class NavBar extends Component {
               <Nav>
                 <Nav.Link href="/universities">Universities</Nav.Link>
                 <Nav.Link onClick={this.logout}>Logout</Nav.Link>
-                <span className="border border-warning">
-                  <Nav.Link href="/profile"><img src="..." alt="..." className="rounded-circle" /></Nav.Link>
+                <span id='profile-img-span'>
+                  <Nav.Link href="/profile"><img id="profile-img" src={logo} alt="..." className="rounded-circle" /></Nav.Link>
                 </span>
-                <Nav.Link  href="/profile">Profile</Nav.Link>
-    
+
               </Nav>
             </Navbar.Collapse>
           </Container>

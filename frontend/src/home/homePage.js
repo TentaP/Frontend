@@ -9,10 +9,6 @@ function HomePage() {
             <div id="circle" />
             <div id="circle2" />
             <div id="circle3" />
-
-
-
-
         </>
     )
 

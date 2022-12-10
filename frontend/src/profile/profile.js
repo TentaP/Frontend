@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './profile-style.css';
-
 import Cookies from 'universal-cookie';
-import Container from 'react-bootstrap/Navbar';
-import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
-
 import ProfileCard from './profile-card';
-import ProfileInfoList from './profile-InfoList';
-import ProfileItemsList from './profile-ItemsList';
+import history from '../history';
+
 
 const cookies = new Cookies();
 let cookie = cookies.get('jwt')
@@ -22,7 +18,7 @@ export class Profile extends Component {
       name: "test",
       email: "test@test.com",
       currentMenu: "Settings",
-      //avatar64: "",
+      loading: true,
     }
   }
 
@@ -37,10 +33,15 @@ export class Profile extends Component {
         this.setState({
           name: res.data.username,
           email: res.data.email,
+          loading: false
         })
-      }).catch((error) => {
 
-        console.log(error)
+      }).catch((error) => {
+        this.setState({
+          loading: true
+        })
+        history.push(`/`);
+        window.location.reload();
       });
 
       /**
@@ -59,6 +60,9 @@ export class Profile extends Component {
         console.log(error)
       });
       **/
+    } else {
+      history.push(`/`);
+      window.location.reload();
     }
   }
 
@@ -70,30 +74,36 @@ export class Profile extends Component {
   }
 
   render() {
-    return (
+    if (this.state.loading) {
+      <></>
 
-      <>
-        <div id="container">
-          <div id="child-left">
+    } else {
+      return (
 
-            <ProfileCard
-              image={this.state.avatar64}
-              email={this.state.email}
-              name={this.state.name} />
-            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
-            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
-            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
-            <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
+        <>
+          <div id="container">
+            <div id="child-left">
 
+              <ProfileCard
+                image={this.state.avatar64}
+                email={this.state.email}
+                name={this.state.name} />
+              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
+              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
+              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
+              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
+
+            </div>
+            <div id="child-right" >
+              <h1> TEST </h1>
+
+            </div>
           </div>
-          <div id="child-right" >
-            <h1> TEST </h1>
+        </>
 
-          </div>
-        </div>
-      </>
+      );
 
-    );
+    }
   }
 }
 

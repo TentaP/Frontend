@@ -29,6 +29,15 @@ body {
   z-index: -1000;
 }
 
+@media screen and (max-width: 991px) {
+  #circle {
+    display: none;
+  }
+
+  /* show it on small screens */
+}
+
+
 #circle2 {
   bottom: 0px;
   right: 0px;
@@ -40,6 +49,14 @@ body {
   z-index: -1000;
 }
 
+@media screen and (max-width: 991px) {
+  #circle2 {
+    display: none;
+  }
+
+  /* show it on small screens */
+}
+
 #circle3 {
   position: absolute;
   background: linear-gradient(to left, rgb(108, 43, 178), rgb(48, 108, 212));
@@ -49,6 +66,14 @@ body {
   z-index: -1000;
   margin-left: 50%;
 
+}
+
+@media screen and (max-width: 991px) {
+  #circle3 {
+    display: none;
+  }
+
+  /* show it on small screens */
 }
 
 /* width */

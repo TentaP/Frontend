@@ -94,7 +94,7 @@ export class NavBar extends Component {
       return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="/">M7011E</Navbar.Brand>
+            <Navbar.Brand href="/">TentaP</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="justify-content-end flex-grow-1 pe-3 py-5">

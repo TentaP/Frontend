@@ -1,0 +1,21 @@
+.files-div {
+    margin: 5vh;
+}
+
+.files-h1 {
+    text-align: center;
+}
+
+#view-div {
+    padding: 0 auto;
+}
+
+#view-h1 {
+    display: inline-block;
+}
+
+#view-btn {
+    vertical-align: middle;
+    float: right;
+    background-color: #212529;
+}

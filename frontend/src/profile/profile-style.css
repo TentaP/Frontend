@@ -54,7 +54,7 @@ h1 {
     color: rgb(136, 138, 140);
 }
 
-#child-right {
+.child-right {
     flex: 2;
     /* <---------------- required */
     padding: 1rem;
@@ -63,7 +63,7 @@ h1 {
 }
 
 @media screen and (max-width: 991px) {
-    #child-right {
+    .child-right {
         display: block;
         margin: 0 auto;
         max-width: 100%;
@@ -89,4 +89,3 @@ h1 {
     /* Make the buttons appear below each other */
 
 }
-

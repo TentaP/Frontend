@@ -1,8 +1,8 @@
-import Profile from "../profile/profile";
+import Profile from "./profile";
 import NavBar from "../navbar/navbar";
 import { useParams } from 'react-router-dom';
 
-function ProfilePage() {
+function UserProfile() {
   const { username } = useParams();
 
 
@@ -14,4 +14,4 @@ function ProfilePage() {
   )
 }
 
-export default ProfilePage;
+export default UserProfile;

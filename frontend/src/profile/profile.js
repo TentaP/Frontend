@@ -5,6 +5,11 @@ import Cookies from 'universal-cookie';
 import Button from 'react-bootstrap/Button';
 import ProfileCard from './profile-card';
 import history from '../history';
+import ProfileUniversities from './profileUniversities';
+import ProfileCourses from './profileCourses';
+import ProfileFiles from './profileFiles';
+import ProfileUsers from './profileUsers';
+
 
 
 const cookies = new Cookies();
@@ -15,10 +20,12 @@ export class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "test",
-      email: "test@test.com",
-      currentMenu: "Settings",
+      name: null,
+      email: null,
+      currentMenu: "",
+      admin: false,
       loading: true,
+      append: null,
     }
   }
 
@@ -36,6 +43,12 @@ export class Profile extends Component {
           loading: false
         })
 
+        if (res.data.is_admin || res.data.is_superuser) {
+          this.setState({
+            admin: true,
+          })
+        }
+
       }).catch((error) => {
         this.setState({
           loading: true
@@ -44,22 +57,6 @@ export class Profile extends Component {
         window.location.reload();
       });
 
-      /**
-      axios.get('/user/image', {
-        responseType: 'blob',
-      }).then((res)=> {
-
-        var reader = new window.FileReader();
-        reader.readAsDataURL(res.data);
-        reader.onload = () => {
-          this.setState({
-            avatar64: reader.result.split(',')[1]
-          })
-        }
-      }).catch((error) =>{
-        console.log(error)
-      });
-      **/
     } else {
       history.push(`/`);
       window.location.reload();
@@ -67,41 +64,101 @@ export class Profile extends Component {
   }
 
   handleButtonclick = (event) => {
+
+    console.log(event.target.id)
+    var divToShow = document.getElementById(`${event.target.id}-div`)
+    divToShow.hidden = false
     if (event.target.id !== this.state.currentMenu) {
       this.setState({ currentMenu: event.target.id });
-
+      var divTohide = document.getElementById(`${this.state.currentMenu}-div`)
+      divTohide.hidden = true
     }
   }
+
+
+
 
   render() {
     if (this.state.loading) {
       <></>
 
     } else {
-      return (
+      if (this.state.admin) {
+        return (
+          <>
+            <div id="container">
+              <div id="child-left">
 
-        <>
-          <div id="container">
-            <div id="child-left">
+                <ProfileCard
+                  image={this.state.avatar64}
+                  email={this.state.email}
+                  name={this.state.name} />
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
 
-              <ProfileCard
-                image={this.state.avatar64}
-                email={this.state.email}
-                name={this.state.name} />
-              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
-              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
-              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
-              <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
+              </div>
+              <div className='child-right' id="Settings-div" hidden={true} >
+                <h1>Settings</h1>
+              </div>
+
+              <div className='child-right' id="Courses-div" hidden={true} >
+                <h1>Courses</h1>
+                <ProfileCourses />
+              </div>
+
+              <div className='child-right' id="Universities-div" hidden={true}>
+                <h1>Universities</h1>
+                <ProfileUniversities />
+              </div>
+
+              <div className='child-right' id="Files-div" hidden={true}>
+                <h1>Files</h1>
+                <ProfileFiles />
+              </div>
+
+              <div className='child-right' id="Users-div" hidden={true}>
+                <h1>Users</h1>
+                <ProfileUsers />
+              </div>
+
+
+              <div className='child-right' id="Reviews-div" hidden={true}>
+                <h1>Reviews</h1>
+              </div>
+
 
             </div>
-            <div id="child-right" >
-              <h1> TEST </h1>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <div id="container">
+              <div id="child-left">
 
+                <ProfileCard
+                  image={this.state.avatar64}
+                  email={this.state.email}
+                  name={this.state.name} />
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
+                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
+
+              </div>
+              <div id="child-right" >
+                <h1> TEST </h1>
+
+              </div>
             </div>
-          </div>
-        </>
+          </>
+        );
+      }
 
-      );
 
     }
   }

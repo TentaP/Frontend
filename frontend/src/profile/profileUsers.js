@@ -43,14 +43,14 @@ export class ProfileUsers extends Component {
 
 
 
-    del(id) {
+    deleteConfirmation(id) {
         confirmAlert({
             title: 'Confirm to submit',
             message: `Are you sure to delete ${id}`,
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => this.delUni(id)
+                    onClick: () => this.deleteFunction(id)
                 },
                 {
                     label: 'No',
@@ -60,7 +60,7 @@ export class ProfileUsers extends Component {
         });
     };
 
-    delUni(id) {
+    deleteFunction(id) {
         axios.defaults.withCredentials = true;
         axios
             .delete(`/user/${id}`)
@@ -73,6 +73,15 @@ export class ProfileUsers extends Component {
                 alert(`${error}`)
             })
     }
+
+    BooleanHandlar(data) {
+        if (data) {
+            return 'Yes'
+        } else
+            return 'No'
+    }
+
+
 
 
 
@@ -109,10 +118,10 @@ export class ProfileUsers extends Component {
                                             <td>{data.username}</td>
                                             <td>{data.email}</td>
                                             <td>{data.university}</td>
-                                            <td>{data.is_admin}</td>
-                                            <td>{data.is_superuser}</td>
-                                            <td>{data.is_active}</td>
-                                            <td><Button onClick={() => this.del(data.id)} type={"link"}>Delete</Button></td>
+                                            <td>{this.BooleanHandlar(data.is_admin)}</td>
+                                            <td>{this.BooleanHandlar(data.is_superuser)}</td>
+                                            <td>{this.BooleanHandlar(data.is_active)}</td>
+                                            <td><Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button></td>
 
                                         </tr>
                                     )

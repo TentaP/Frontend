@@ -43,14 +43,14 @@ export class ProfileFiles extends Component {
 
 
 
-    del(id) {
+    deleteConfirmation(id) {
         confirmAlert({
             title: 'Confirm to submit',
             message: `Are you sure to delete ${id}`,
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => this.delUni(id)
+                    onClick: () => this.deleteFunction(id)
                 },
                 {
                     label: 'No',
@@ -60,7 +60,7 @@ export class ProfileFiles extends Component {
         });
     };
 
-    delUni(id) {
+    deleteFunction(id) {
         axios.defaults.withCredentials = true;
         axios
             .delete(`/file/${id}`)
@@ -113,7 +113,7 @@ export class ProfileFiles extends Component {
                                         <td>{(data.date_of_uploading).slice(0, 10)}</td>
                                         <td>{this.has_solutions(data.has_solutions)}</td>
                                         <td>{data.uploaded_by_id}</td>
-                                        <td><Button onClick={() => this.del(data.id)} type={"link"}>Delete</Button></td>
+                                        <td><Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button></td>
                                     </tr>
                                 )
                             })

@@ -43,14 +43,14 @@ export class ProfileUniversities extends Component {
 
 
 
-    del(id) {
+    deleteConfirmation(id) {
         confirmAlert({
             title: 'Confirm to submit',
             message: `Are you sure to delete ${id}`,
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => this.delUni(id)
+                    onClick: () => this.deleteFunction(id)
                 },
                 {
                     label: 'No',
@@ -60,7 +60,7 @@ export class ProfileUniversities extends Component {
         });
     };
 
-    delUni(id) {
+    deleteFunction(id) {
         axios.defaults.withCredentials = true;
         axios
             .delete(`/uni/${id}`)
@@ -102,7 +102,7 @@ export class ProfileUniversities extends Component {
                                         <tr key={index}>
                                             <td>{data.id}</td>
                                             <td>{data.university_name}</td>
-                                            <td><Button onClick={() => this.del(data.id)} type={"link"}>Delete</Button></td>
+                                            <td><Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button></td>
 
                                         </tr>
                                     )

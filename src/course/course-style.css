@@ -7,7 +7,18 @@
 }
 
 #view-div {
-    padding: 0 auto;
+    /*display: none;*/
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    margin: 0 auto;
+    padding: 8vh;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+
 }
 
 #view-h1 {
@@ -18,4 +29,9 @@
     vertical-align: middle;
     float: right;
     background-color: #212529;
+}
+
+#upload-btn {
+    height: 9%;
+    border-radius: 10px;
 }

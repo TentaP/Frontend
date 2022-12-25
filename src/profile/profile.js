@@ -9,6 +9,7 @@ import ProfileUniversities from './profileUniversities';
 import ProfileCourses from './profileCourses';
 import ProfileFiles from './profileFiles';
 import ProfileUsers from './profileUsers';
+import FileUpload from './fileUpload';
 
 
 
@@ -53,13 +54,13 @@ export class Profile extends Component {
         this.setState({
           loading: true
         })
-        history.push(`/`);
-        window.location.reload();
+        //history.push(`/`);
+        //window.location.reload();
       });
 
     } else {
-      history.push(`/`);
-      window.location.reload();
+      //history.push(`/`);
+      //window.location.reload();
     }
   }
 
@@ -75,7 +76,9 @@ export class Profile extends Component {
     }
   }
 
-
+  uploadFile() {
+    document.getElementById("view-div").hidden = false
+  }
 
 
   render() {
@@ -93,14 +96,24 @@ export class Profile extends Component {
                   image={this.state.avatar64}
                   email={this.state.email}
                   name={this.state.name} />
+                <Button style={{ "background-color": "#6910CB" }} id='upload-btn' variant="light" size="lg" onClick={() => this.uploadFile()} >Upload file</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
+              </div>
+
+              <div id='view-div' hidden={true}>
+                <Button id="view-btn" onClick={() => {
+                  document.getElementById("view-div").hidden = true
+                }}>X</Button>
+                <FileUpload/>
 
               </div>
+
+
               <div className='child-right' id="Settings-div" hidden={true} >
                 <h1>Settings</h1>
               </div>
@@ -125,11 +138,9 @@ export class Profile extends Component {
                 <ProfileUsers />
               </div>
 
-
               <div className='child-right' id="Reviews-div" hidden={true}>
                 <h1>Reviews</h1>
               </div>
-
 
             </div>
           </>

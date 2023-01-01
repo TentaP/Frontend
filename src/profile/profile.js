@@ -4,7 +4,6 @@ import './profile-style.css';
 import Cookies from 'universal-cookie';
 import Button from 'react-bootstrap/Button';
 import ProfileCard from './profile-card';
-import history from '../history';
 import ProfileUniversities from './profileUniversities';
 import ProfileCourses from './profileCourses';
 import ProfileFiles from './profileFiles';

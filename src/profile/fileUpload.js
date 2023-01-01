@@ -12,6 +12,11 @@ import {
     from 'mdb-react-ui-kit';
 
 import Button from 'react-bootstrap/Button';
+import Select from 'react-select'
+import Form from 'react-bootstrap/Form';
+
+
+
 
 
 class FileUpload extends Component {
@@ -19,32 +24,21 @@ class FileUpload extends Component {
         file: null,
         filename: "",
         course: "",
+        courses: [],
     };
 
-    componentDidMount(){
+    componentDidMount() {
         axios.defaults.withCredentials = true;
-        axios.get('/user').then((res) => {
-  
-          this.setState({
-            name: res.data.username,
-            email: res.data.email,
-            loading: false
-          })
-  
-          if (res.data.is_admin || res.data.is_superuser) {
-            this.setState({
-              admin: true,
+        axios
+            .get('/courses')
+            .then((response) => {
+                this.setState({ courses: response.data })
+
             })
-          }
-  
-        }).catch((error) => {
-          this.setState({
-            loading: true
-          })
-          //history.push(`/`);
-          //window.location.reload();
-        });
-  
+            .catch((error) => {
+                //history.push('/');
+                //window.location.reload();
+            })
     }
 
     handleSubmit = (e) => {
@@ -53,10 +47,17 @@ class FileUpload extends Component {
         formData.append('file', this.state.file);
         formData.append('filename', this.state.filename);
         formData.append('course', this.state.course);
+        console.log(this.state.course)
 
-        console.log(this.state.file)
         axios.post('/file', formData).then((response) => {
             console.log(response.data);
+            alert(`${this.state.filename} has been uploaded`)
+            window.location.reload();
+
+
+        }).catch((error) => {
+            alert(`${error}`)
+
         });
     }
 
@@ -73,9 +74,19 @@ class FileUpload extends Component {
                             <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }}>
                                 <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
 
-
                                     <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='File name' type="text" onChange={(e) => this.setState({ filename: e.target.value })} />
-                                    <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Course' type="text" onChange={(e) => this.setState({ course: e.target.value })} />
+
+                                    <Form.Select id="profile-select" aria-label="Default select example" onChange={(e) => this.setState({ course: e.target.value })}>
+                                        <option>Select course</option>
+                                        {
+                                            this.state.courses.map((data, index) => {
+                                                return (
+                                                    <option key={index} value={data['course_name']}>{data['course_name']}</option>
+                                                )
+                                            })
+                                        }
+                                    </Form.Select>
+
                                     <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='' type="file" onChange={(e) => this.setState({ file: e.target.files[0] })} />
                                     <Button id='login-btn' variant="light" size="lg" type="submit">Upload</Button>
 

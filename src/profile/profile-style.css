@@ -100,13 +100,59 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
-    height: auto;
+    width: 99%;
+    height: 99%;
     overflow: auto;
-    background: transparent;
+    background: black;
 
 }
 
 #profile-select {
     margin-bottom: 5vh;
+}
+
+
+#Courses-span {
+    margin-bottom: 2vh;
+    float: left;
+
+}
+
+#Universities-span {
+    margin-bottom: 2vh;
+    float: left;
+
+}
+
+
+#new-course-div {
+    /*display: none;*/
+    position: fixed;
+    z-index: 100;
+    margin: 0 auto;
+    padding: 8vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 99%;
+    height: 99%;
+    overflow: auto;
+    background: black;
+
+}
+
+#new-uni-div {
+    /*display: none;*/
+    position: fixed;
+    z-index: 100;
+    margin: 0 auto;
+    padding: 8vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 99%;
+    height: 99%;
+    overflow: auto;
+    background: black;
+
 }

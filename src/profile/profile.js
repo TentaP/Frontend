@@ -9,6 +9,11 @@ import ProfileCourses from './profileCourses';
 import ProfileFiles from './profileFiles';
 import ProfileUsers from './profileUsers';
 import FileUpload from './fileUpload';
+import { IoAddCircleOutline } from "react-icons/io5";
+import history from '../history';
+import AddUni from './addUni';
+import AddCourse from './addCourse';
+
 
 
 
@@ -58,8 +63,8 @@ export class Profile extends Component {
       });
 
     } else {
-      //history.push(`/`);
-      //window.location.reload();
+      history.push(`/`);
+      window.location.reload();
     }
   }
 
@@ -104,38 +109,83 @@ export class Profile extends Component {
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
               </div>
 
+              {/** 
+               * Upload file
+               */}
+
               <div id='view-div-profile' hidden={true}>
-                <Button id="view-btn" onClick={() => {
+                <Button className="view-btn" onClick={() => {
                   document.getElementById("view-div-profile").hidden = true
                 }}>X</Button>
                 <FileUpload />
 
               </div>
 
+              {/** 
+               * settings
+               */}
+
 
               <div className='child-right' id="Settings-div" hidden={true} >
                 <h1>Settings</h1>
               </div>
 
+              {/** 
+               * courses
+               */}
+
               <div className='child-right' id="Courses-div" hidden={true} >
-                <h1>Courses</h1>
+                <h1 className='h1-inline'>Courses</h1>
+                <div id='new-course-div' hidden={true}>
+                  <Button className="view-btn" onClick={() => {
+                    document.getElementById("new-course-div").hidden = true
+                  }}>X</Button>
+                  <AddCourse />
+                </div>
+                <Button id="Courses-span" onClick={() => document.getElementById("new-course-div").hidden = false
+                }>Add course <IoAddCircleOutline /></Button>
+
                 <ProfileCourses />
               </div>
 
+              {/** 
+               * universities
+               */}
+
               <div className='child-right' id="Universities-div" hidden={true}>
-                <h1>Universities</h1>
+                <h1 className='h1-inline'>Universities</h1>
+                <div id='new-uni-div' hidden={true}>
+                  <Button className="view-btn" onClick={() => {
+                    document.getElementById("new-uni-div").hidden = true
+                  }}>X</Button>
+                  <AddUni />
+                </div>
+                <Button id="Universities-span" onClick={() => document.getElementById("new-uni-div").hidden = false
+                }>Add university <IoAddCircleOutline /></Button>
                 <ProfileUniversities />
               </div>
+
+              {/** 
+               * files
+               */}
 
               <div className='child-right' id="Files-div" hidden={true}>
                 <h1>Files</h1>
                 <ProfileFiles />
               </div>
 
+              {/** 
+               * users
+               */}
+
               <div className='child-right' id="Users-div" hidden={true}>
                 <h1>Users</h1>
                 <ProfileUsers />
               </div>
+
+              {/** 
+               * reviews
+               */}
 
               <div className='child-right' id="Reviews-div" hidden={true}>
                 <h1>Reviews</h1>

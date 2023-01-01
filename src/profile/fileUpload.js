@@ -110,13 +110,3 @@ class FileUpload extends Component {
 }
 
 export default FileUpload;
-
-
-/**
- *             <form onSubmit={this.handleSubmit}>
-                <input type="text" onChange={(e) => this.setState({ filename: e.target.value })} />
-                <input type="text" onChange={(e) => this.setState({ course: e.target.value })} />
-                <input type="file" onChange={(e) => this.setState({ file: e.target.files[0] })} />
-                <button type="submit">Upload</button>
-            </form>
- */

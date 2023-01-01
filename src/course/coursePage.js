@@ -153,7 +153,7 @@ export class CoursePage extends Component {
 
           <div id='view-div' hidden={true}>
             <h1 id='view-h1'> </h1>
-            <Button id="view-btn" onClick={() => {
+            <Button className="view-btn" onClick={() => {
               document.getElementById("view-div").hidden = true
             }}>X</Button>
             <iframe id='view-iframe' width="100%" height="800px" />

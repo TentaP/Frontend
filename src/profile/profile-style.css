@@ -91,17 +91,18 @@ h1 {
 }
 
 
-#view-div {
+#view-div-profile {
     /*display: none;*/
     position: fixed;
     z-index: 100;
-    left: 0;
-    top: 0;
     margin: 0 auto;
     padding: 8vh;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
     overflow: auto;
-    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    background: transparent;
 
 }

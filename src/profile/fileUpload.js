@@ -21,6 +21,32 @@ class FileUpload extends Component {
         course: "",
     };
 
+    componentDidMount(){
+        axios.defaults.withCredentials = true;
+        axios.get('/user').then((res) => {
+  
+          this.setState({
+            name: res.data.username,
+            email: res.data.email,
+            loading: false
+          })
+  
+          if (res.data.is_admin || res.data.is_superuser) {
+            this.setState({
+              admin: true,
+            })
+          }
+  
+        }).catch((error) => {
+          this.setState({
+            loading: true
+          })
+          //history.push(`/`);
+          //window.location.reload();
+        });
+  
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();

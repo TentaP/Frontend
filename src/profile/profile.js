@@ -77,7 +77,7 @@ export class Profile extends Component {
   }
 
   uploadFile() {
-    document.getElementById("view-div").hidden = false
+    document.getElementById("view-div-profile").hidden = false
   }
 
 
@@ -96,7 +96,7 @@ export class Profile extends Component {
                   image={this.state.avatar64}
                   email={this.state.email}
                   name={this.state.name} />
-                <Button style={{ "background-color": "#6910CB" }} id='upload-btn' variant="light" size="lg" onClick={() => this.uploadFile()} >Upload file</Button>
+                <Button id='upload-btn' variant="light" size="lg" onClick={() => this.uploadFile()} >Upload file</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
@@ -105,11 +105,11 @@ export class Profile extends Component {
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
               </div>
 
-              <div id='view-div' hidden={true}>
+              <div id='view-div-profile' hidden={true}>
                 <Button id="view-btn" onClick={() => {
-                  document.getElementById("view-div").hidden = true
+                  document.getElementById("view-div-profile").hidden = true
                 }}>X</Button>
-                <FileUpload/>
+                <FileUpload />
 
               </div>
 

@@ -18,6 +18,7 @@ export class ProfileCourses extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            admin: props.admin,
             courses: [],
         };
     }
@@ -29,16 +30,29 @@ export class ProfileCourses extends Component {
             window.location.reload();
         }
         axios.defaults.withCredentials = true;
-        axios
-            .get('/courses')
-            .then((response) => {
-                console.log(response.data)
-                this.setState({ courses: response.data })
-            })
-            .catch((error) => {
-                //history.push('/');
-                //window.location.reload();
-            })
+        if (this.state.admin) {
+          axios
+              .get('/courses')
+              .then((response) => {
+                  console.log(response.data)
+                  this.setState({ courses: response.data })
+              })
+              .catch((error) => {
+                  //history.push('/');
+                  //window.location.reload();
+              })
+        } else { // change to get courses for user through courses by uni
+          axios
+              .get('user/courses')
+              .then((response) => {
+                  console.log(response.data)
+                  this.setState({ courses: response.data })
+              })
+              .catch((error) => {
+                  //history.push('/');
+                  //window.location.reload();
+              })
+        }
     }
 
 
@@ -95,7 +109,13 @@ export class ProfileCourses extends Component {
                                 <th>Course Name</th>
                                 <th>Course description</th>
                                 <th>Course university</th>
-                                <th>Delete</th>
+                                { 
+                                  () => { if (this.state.admin) {
+                                      return (
+                                          <th>Delete</th>
+                                    )}
+                                  }
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -107,8 +127,13 @@ export class ProfileCourses extends Component {
                                             <td>{data.course_name}</td>
                                             <td>{data.description}</td>
                                             <td>{data.university}</td>
-                                            <td><Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button></td>
-
+                                            { 
+                                              () => { if (this.state.admin) {
+                                                return (
+                                                  <td><Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button></td>
+                                                )}
+                                              }
+                                            }
                                         </tr>
                                     )
                                 })

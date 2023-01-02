@@ -102,13 +102,15 @@ export class Profile extends Component {
                 <Button id='upload-btn' variant="light" size="lg" onClick={() => this.uploadFile()} >Upload file</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
-                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
                 {
                   () => { if (this.state.admin) {
                     return (
-                      <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
+                      <>
+                        <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
+                        <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
+                      </>
                     )}
                   }
                 }
@@ -147,10 +149,14 @@ export class Profile extends Component {
                   }}>X</Button>
                   <AddCourse />
                 </div>
+                { () => { if (this.state.admin) {
+                  return (
                 <Button id="Courses-span" onClick={() => document.getElementById("new-course-div").hidden = false
                 }>Add course <IoAddCircleOutline /></Button>
+                  )}
+                }}
 
-                <ProfileCourses />
+                <ProfileCourses admin={this.state.admin}/>
               </div>
 
               {/** 

@@ -1,6 +1,7 @@
 import Cookies from "universal-cookie";
 import React, { Component } from 'react'
 import history from '../history';
+import Profile from './profile';
 import NavBar from '../navbar/navbar';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
@@ -18,8 +19,10 @@ export class ProfileFiles extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            admin: props.admin,
             files: [],
         };
+      console.log(this.state)
     }
 
 
@@ -29,16 +32,30 @@ export class ProfileFiles extends Component {
             window.location.reload();
         }
         axios.defaults.withCredentials = true;
-        axios
-            .get('/files')
-            .then((response) => {
-                console.log(response.data)
-                this.setState({ files: response.data })
-            })
-            .catch((error) => {
-                //history.push('/');
-                //window.location.reload();
-            })
+        if (this.state.admin) {
+          axios
+              .get('/files')
+              .then((response) => {
+                  console.log(response.data)
+                  this.setState({ files: response.data })
+              })
+              .catch((error) => {
+                  //history.push('/');
+                  //window.location.reload();
+              })
+        } else {
+          axios
+              .get('/user/files')
+              .then((response) => {
+                  console.log(response.data)
+                  this.setState({ files: response.data })
+              })
+              .catch((error) => {
+                  //history.push('/');
+                  //window.location.reload();
+              })
+
+        }
     }
 
 

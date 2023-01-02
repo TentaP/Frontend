@@ -90,7 +90,6 @@ export class Profile extends Component {
       <></>
 
     } else {
-      if (this.state.admin) {
         return (
           <>
             <div id="container">
@@ -105,8 +104,14 @@ export class Profile extends Component {
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
-                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
+                {
+                  () => { if (this.state.admin) {
+                    return (
+                      <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
+                    )}
+                  }
+                }
               </div>
 
               {/** 
@@ -171,7 +176,7 @@ export class Profile extends Component {
 
               <div className='child-right' id="Files-div" hidden={true}>
                 <h1>Files</h1>
-                <ProfileFiles />
+                <ProfileFiles admin={this.state.admin}/>
               </div>
 
               {/** 
@@ -194,30 +199,6 @@ export class Profile extends Component {
             </div>
           </>
         );
-      } else {
-        return (
-          <>
-            <div id="container">
-              <div id="child-left">
-
-                <ProfileCard
-                  image={this.state.avatar64}
-                  email={this.state.email}
-                  name={this.state.name} />
-                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Settings">Settings</Button>
-                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
-                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
-                <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
-
-              </div>
-              <div id="child-right" >
-                <h1> TEST </h1>
-
-              </div>
-            </div>
-          </>
-        );
-      }
 
 
     }

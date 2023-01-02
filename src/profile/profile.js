@@ -74,6 +74,7 @@ export class Profile extends Component {
 
       }).catch((error) => {
         this.setState({
+          avatar64: null,
           loading: true
         })
         //history.push(`/`);
@@ -208,10 +209,12 @@ export class Profile extends Component {
                * users
                */}
 
+              { () => { if (this.state.admin) {
               <div className='child-right' id="Users-div" hidden={true}>
                 <h1>Users</h1>
                 <ProfileUsers />
               </div>
+              }}}
 
               {/** 
                * reviews

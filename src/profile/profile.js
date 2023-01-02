@@ -29,6 +29,7 @@ export class Profile extends Component {
       name: null,
       email: null,
       user: null,
+      avatar64: null,
       currentMenu: "",
       admin: false,
       loading: true,
@@ -56,6 +57,20 @@ export class Profile extends Component {
             admin: true,
           })
         }
+
+      }).catch((error) => {
+        this.setState({
+          loading: true
+        })
+        //history.push(`/`);
+        //window.location.reload();
+      });
+
+    axios.get('/user/avatar').then((res) => {
+
+      this.setState({
+        avatar64: res.data,
+      })
 
       }).catch((error) => {
         this.setState({

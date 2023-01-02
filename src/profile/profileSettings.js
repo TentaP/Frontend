@@ -29,6 +29,7 @@ export class ProfileCourses extends Component {
           unis: [],
           uni: this.props.user.university, //this is the current uni pk
           newEmail: "",
+          imageToUpload: null,
         };
     }
 
@@ -64,7 +65,7 @@ export class ProfileCourses extends Component {
       alert("No change");
       return;
     } else {
-      axios.defaults.withCredentials = true; //TODO: noreload and update state
+      axios.defaults.withCredentials = true; 
       axios
           .put(`/user/uni/${this.state.uni}`)
           .then(() => {
@@ -78,6 +79,41 @@ export class ProfileCourses extends Component {
     }
   }
 
+  onChangeAvatar = (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0]);
+    this.setState({imageToUpload: e.target.files[0]});
+  }
+
+  onSubmitAvatar = (e) => {
+    e.preventDefault();
+
+    if (this.state.imageToUpload.type == "image/png" || this.state.imageToUpload == null) {
+      const formData = new FormData();
+      formData.append('avatar', this.state.imageToUpload);
+      axios.defaults.withCredentials = true;
+      axios
+          .post('/user/avatar', formData , {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then((response) => {
+            /**
+            history.push('/profile/User/' + this.state.user.username);
+             **/
+            window.location.reload();
+          })
+          .catch((error) => {
+            alert(`${error}`)
+          })
+
+    } else {
+      alert("File type not supported");
+    }
+
+  } 
+
 
     componentWillUnmount() {
         clearInterval(this.interval);
@@ -88,39 +124,6 @@ export class ProfileCourses extends Component {
         return (
             <>
                 <div>
-                  {/**
-              <Form onSubmit={this.onSubmitEmail}>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicEmail">
-                  <Form.Label column sm="2">Email address</Form.Label>
-                  <Col sm="8">
-                  <Form.Control name="emailInput" type="text" placeholder="Enter email" 
-                    onChange={this.onInput} value={this.state.newEmail}/>
-                  </Col>
-                  <Col sm="2">
-                  <Button variant="primary" type="submitEmail">
-                    Submit
-                  </Button>
-                  </Col>
-                </Form.Group>
-                </Form>
-
-                  <Form>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
-                  <Form.Label column sm="2">Password</Form.Label>
-                  <Col sm="4">
-                  <Form.Control type="Password" placeholder="Current Password" />
-                  </Col>
-                  <Col sm="4">
-                  <Form.Control type="Password" placeholder="new Password" />
-                  </Col>
-                  <Col sm="2">
-                  <Button variant="primary" type="submitPassword">
-                    Submit
-                  </Button>
-                  </Col>
-                </Form.Group>
-                    **/}
-
                 <Form onSubmit={this.onSubmitUniversity}>
                   <Form.Group as={Row} className="mb-3" controlId="formUniSelect">
                     <Form.Label column sm="2">University</Form.Label>
@@ -145,17 +148,20 @@ export class ProfileCourses extends Component {
                 {/**
                   avatar submit low priority
                   **/}
-                <Form>
+                <Form onSubmit={this.onSubmitAvatar}>
                 <Form.Group as={Row} className="mb-3" controlId="formAvatar">
                   <Form.Label column sm="2">Avatar</Form.Label>
                   <Col sm="8">
-                  <Form.Control type="file"/>
+                  <Form.Control type="file" onChange={this.onChangeAvatar}/>
                   </Col>
                   <Col sm="2">
                   <Button variant="primary" type="submitAvatar">
                     Submit
                   </Button>
                   </Col>
+                  <Form.Text className="text-muted">
+                    Png files only
+                  </Form.Text>
                 </Form.Group>
               </Form>
                 </div>

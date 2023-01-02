@@ -8,6 +8,7 @@ import ProfileUniversities from './profileUniversities';
 import ProfileCourses from './profileCourses';
 import ProfileFiles from './profileFiles';
 import ProfileUsers from './profileUsers';
+import ProfileSettings from './profileSettings'
 import FileUpload from './fileUpload';
 import { IoAddCircleOutline } from "react-icons/io5";
 import history from '../history';
@@ -27,6 +28,7 @@ export class Profile extends Component {
     this.state = {
       name: null,
       email: null,
+      user: null,
       currentMenu: "",
       admin: false,
       loading: true,
@@ -45,6 +47,7 @@ export class Profile extends Component {
         this.setState({
           name: res.data.username,
           email: res.data.email,
+          user: res.data,
           loading: false
         })
 
@@ -108,8 +111,8 @@ export class Profile extends Component {
                   () => { if (this.state.admin) {
                     return (
                       <>
-                        <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
-                        <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
+                      <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
+                      <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
                       </>
                     )}
                   }
@@ -135,6 +138,7 @@ export class Profile extends Component {
 
               <div className='child-right' id="Settings-div" hidden={true} >
                 <h1>Settings</h1>
+                <ProfileSettings user={this.state.user}/>
               </div>
 
               {/** 

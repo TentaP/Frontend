@@ -27,6 +27,8 @@ export class ProfileCourses extends Component {
         this.state = {
           user: this.props.user,
           unis: [],
+          uni: this.props.user.university, //this is the current uni pk
+          newEmail: "",
         };
     }
 
@@ -40,8 +42,8 @@ export class ProfileCourses extends Component {
         axios
             .get('/uni')
             .then((response) => {
-                console.log(response.data)
-                this.setState({ unis: response.data })
+                console.log(this.state.uni);
+              this.setState({ unis: response.data});
             })
             .catch((error) => {
                 //history.push('/');
@@ -50,39 +52,31 @@ export class ProfileCourses extends Component {
         
     }
 
-/**
-    deleteConfirmation(id) {
-        confirmAlert({
-            title: 'Confirm to submit',
-            message: `Are you sure to delete ${id}`,
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => this.deleteFunction(id)
-                },
-                {
-                    label: 'No',
-                    onClick: () => alert('Click No')
-                }
-            ]
-        });
-    };
+  onChangeUniversity = (e) => {
+    e.preventDefault();
+    this.setState({uni: e.target.value});
 
-    deleteFunction(id) {
-        axios.defaults.withCredentials = true;
-        axios
-            .delete(`/course/${id}`)
-            .then(() => {
-                alert(`${id} has been deleted`)
-                window.location.reload();
+  }
 
-            })
-            .catch((error) => {
-                alert(`${error}`)
-            })
+  onSubmitUniversity = (e) => {
+    e.preventDefault();
+    if (this.state.uni == this.state.user.university) {
+      alert("No change");
+      return;
+    } else {
+      axios.defaults.withCredentials = true; //TODO: noreload and update state
+      axios
+          .put(`/user/uni/${this.state.uni}`)
+          .then(() => {
+              alert(`success`)
+              this.setState({user: {university: this.state.uni}});
+
+          })
+          .catch((error) => {
+              alert(`${error}`)
+          })
     }
- **/
-
+  }
 
 
     componentWillUnmount() {
@@ -94,11 +88,13 @@ export class ProfileCourses extends Component {
         return (
             <>
                 <div>
-              <Form>
+                  {/**
+              <Form onSubmit={this.onSubmitEmail}>
                 <Form.Group as={Row} className="mb-3" controlId="formBasicEmail">
                   <Form.Label column sm="2">Email address</Form.Label>
                   <Col sm="8">
-                  <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Control name="emailInput" type="text" placeholder="Enter email" 
+                    onChange={this.onInput} value={this.state.newEmail}/>
                   </Col>
                   <Col sm="2">
                   <Button variant="primary" type="submitEmail">
@@ -106,14 +102,16 @@ export class ProfileCourses extends Component {
                   </Button>
                   </Col>
                 </Form.Group>
+                </Form>
 
+                  <Form>
                 <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                   <Form.Label column sm="2">Password</Form.Label>
                   <Col sm="4">
-                  <Form.Control type="curPassword" placeholder="Current Password" />
+                  <Form.Control type="Password" placeholder="Current Password" />
                   </Col>
                   <Col sm="4">
-                  <Form.Control type="newPassword" placeholder="new Password" />
+                  <Form.Control type="Password" placeholder="new Password" />
                   </Col>
                   <Col sm="2">
                   <Button variant="primary" type="submitPassword">
@@ -121,19 +119,33 @@ export class ProfileCourses extends Component {
                   </Button>
                   </Col>
                 </Form.Group>
+                    **/}
 
-                <Form.Group as={Row} className="mb-3" controlId="formUniSelect">
-                  <Form.Label column sm="2">University</Form.Label>
-                  <Col sm="8">
-                  <Form.Select value={this.state.unis}/>
-                  </Col>
-                  <Col sm="2">
-                  <Button variant="primary" type="submitAvatar">
-                    Submit
-                  </Button>
-                  </Col>
-                </Form.Group>
+                <Form onSubmit={this.onSubmitUniversity}>
+                  <Form.Group as={Row} className="mb-3" controlId="formUniSelect">
+                    <Form.Label column sm="2">University</Form.Label>
+                    <Col sm="8">
+                    <Form.Select 
+                      value={this.state.uni}
+                      onChange={this.onChangeUniversity}
+                      >
+                      {this.state.unis.map((uni) => (
+                        <option key={uni.university_name} value={uni.id}>{uni.university_name}</option>
+                      ))}
+                      </Form.Select>
+                    </Col>
+                    <Col sm="2">
+                    <Button variant="primary" type="submitUni">
+                      Submit
+                    </Button>
+                    </Col>
+                  </Form.Group>
+                </Form>
 
+                {/**
+                  avatar submit low priority
+                  **/}
+                <Form>
                 <Form.Group as={Row} className="mb-3" controlId="formAvatar">
                   <Form.Label column sm="2">Avatar</Form.Label>
                   <Col sm="8">

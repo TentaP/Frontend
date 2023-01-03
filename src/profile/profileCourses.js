@@ -18,7 +18,7 @@ export class ProfileCourses extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: props.admin,
+            admin: this.props.admin,
             courses: [],
         };
     }

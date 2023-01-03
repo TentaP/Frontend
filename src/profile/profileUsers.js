@@ -28,6 +28,7 @@ export class ProfileUsers extends Component {
             history.push('/');
             window.location.reload();
         }
+        if (this.props.admin) {
         axios.defaults.withCredentials = true;
         axios
             .get('/users')
@@ -39,6 +40,7 @@ export class ProfileUsers extends Component {
                 //history.push('/');
                 //window.location.reload();
             })
+        }
     }
 
 

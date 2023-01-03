@@ -205,10 +205,13 @@ export class Profile extends Component {
                * users
                */}
 
+              {this.state.admin ? <>
               <div className='child-right' id="Users-div" hidden={true}>
                 <h1>Users</h1>
-                <ProfileUsers />
+                <ProfileUsers admin={this.state.admin}/>
               </div>
+              </> : <></>
+              }
 
               {/** 
                * reviews

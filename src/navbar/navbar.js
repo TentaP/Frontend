@@ -46,7 +46,6 @@ export class NavBar extends Component {
           })
         }
       }).catch((error) => {
-        console.log(error)
       });
     }
   }
@@ -54,7 +53,6 @@ export class NavBar extends Component {
 
 
   backHome() {
-    console.log('backHome');
     return true;
   }
 

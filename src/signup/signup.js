@@ -35,20 +35,11 @@ export class SignUp extends Component {
   componentDidMount() {
     const cookies = new Cookies();
     if (cookies.get('jwt')) {
-      axios.get('/user').then((res) => {
-        if (res.data.is_superuser) {
-          console.log("is_superuser") //TODO
-        } else if (res.data.is_admin) {
-          console.log('is_admin') //TODO
-        } else {
-          console.log('normal user') //TODO
-        }
-      }).catch((error) => {
-        console.log(error)
-      });
-
+      history.push('/login');
+      window.location.reload();
     }
   }
+
 
   handleInputChange(event) {
     event.preventDefault();
@@ -69,8 +60,6 @@ export class SignUp extends Component {
 
       axios.post('/signup', data)
         .then(function (response) {
-          console.log(response.data)
-          console.log(response.status)
           document.getElementById("detail-msg").innerHTML = response.data.detail;
           $("#detail-msg").show();
           $("#detail-msg").css("color", "green");
@@ -79,7 +68,6 @@ export class SignUp extends Component {
           window.location.reload();
         })
         .catch(function (error) {
-          console.log(error.response.data)
           document.getElementById("detail-msg").innerHTML = JSON.stringify(error.response.data);
           $("#detail-msg").show();
           $("#detail-msg").css("color", "red");

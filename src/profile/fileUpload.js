@@ -38,7 +38,7 @@ class FileUpload extends Component {
         if (cookie) {
             axios.defaults.withCredentials = true;
             axios.get('/user').then((res) => {
-                if (res.data.super_user || res.data.admin) {
+                if (res.data.is_admin || res.data.is_superuser) {
                     axios
                         .get('/courses')
                         .then((response) => {
@@ -51,7 +51,6 @@ class FileUpload extends Component {
                     axios
                         .get('user/courses')
                         .then((response) => {
-                            console.log(response.data)
                             this.setState({ courses: response.data })
                         })
                         .catch((error) => {
@@ -61,7 +60,6 @@ class FileUpload extends Component {
 
                 }
             }).catch((error) => {
-                console.log(error)
             });
         }
     }
@@ -75,10 +73,8 @@ class FileUpload extends Component {
         formData.append('file', this.state.file);
         formData.append('filename', this.state.filename);
         formData.append('course', this.state.course);
-        console.log(this.state.course)
 
         axios.post('/file', formData).then((response) => {
-            console.log(response.data);
             alert(`${this.state.filename} has been uploaded`)
             window.location.reload();
 

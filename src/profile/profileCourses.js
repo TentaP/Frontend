@@ -33,7 +33,6 @@ export class ProfileCourses extends Component {
           axios
               .get('/courses')
               .then((response) => {
-                  console.log(response.data)
                   this.setState({ courses: response.data })
               })
               .catch((error) => {
@@ -44,7 +43,6 @@ export class ProfileCourses extends Component {
           axios
               .get('user/courses')
               .then((response) => {
-                  console.log(response.data)
                   this.setState({ courses: response.data })
               })
               .catch((error) => {

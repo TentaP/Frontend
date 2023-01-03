@@ -74,7 +74,6 @@ export class CoursePage extends Component {
 
       })
       .catch((error) => {
-        console.log(error)
       })
   }
 
@@ -82,11 +81,9 @@ export class CoursePage extends Component {
     axios.defaults.withCredentials = true;
     axios.get(`/file/${id}`)
       .then((response) => {
-        console.log(response.data.file)
         this.downloadFile(response.data.file, response.data.filename)
       })
       .catch((error) => {
-        console.log(error)
       })
   }
 

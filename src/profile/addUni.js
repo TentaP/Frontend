@@ -28,7 +28,6 @@ class AddUni extends Component {
 
 
         axios.post('/uni', data).then((response) => {
-            console.log(response.data);
             alert(`${this.state.university_name} has been added`)
             window.location.reload();
 

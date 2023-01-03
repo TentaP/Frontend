@@ -44,7 +44,6 @@ export class ProfileCourses extends Component {
     axios
       .get('/uni')
       .then((response) => {
-        console.log(this.state.uni);
         this.setState({ unis: response.data });
       })
       .catch((error) => {
@@ -83,7 +82,6 @@ export class ProfileCourses extends Component {
 
   onChangeAvatar = (e) => {
     e.preventDefault();
-    console.log(e.target.files[0]);
     this.setState({ imageToUpload: e.target.files[0] });
   }
 

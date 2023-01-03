@@ -22,7 +22,6 @@ export class ProfileFiles extends Component {
             admin: this.props.admin,
             files: [],
         };
-      console.log(this.state)
     }
 
 
@@ -36,7 +35,6 @@ export class ProfileFiles extends Component {
           axios
               .get('/files')
               .then((response) => {
-                  console.log(response.data)
                   this.setState({ files: response.data })
               })
               .catch((error) => {
@@ -47,7 +45,6 @@ export class ProfileFiles extends Component {
           axios
               .get('/user/files')
               .then((response) => {
-                  console.log(response.data)
                   this.setState({ files: response.data })
               })
               .catch((error) => {

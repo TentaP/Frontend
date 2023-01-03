@@ -43,7 +43,6 @@ export class Login extends Component {
     if (cookie) {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res) => {
-        console.log(res.data)
         if (res.data.super_user || res.data.admin) {
           history.push(`/profile/admin/${res.data.username}`);
           window.location.reload();
@@ -52,7 +51,6 @@ export class Login extends Component {
           window.location.reload();
         }
       }).catch((error) => {
-        console.log(error)
       });
     }
   }
@@ -92,7 +90,6 @@ export class Login extends Component {
           }
         })
         .catch(function (error) {
-          console.log(error.response.data)
           document.getElementById("detail-msg").innerHTML = JSON.stringify(error.response.data);
           $("#detail-msg").show();
           $("#detail-msg").css("color", "red");

@@ -33,7 +33,6 @@ export class ProfileUsers extends Component {
         axios
             .get('/users')
             .then((response) => {
-                console.log(response.data)
                 this.setState({ users: response.data })
             })
             .catch((error) => {

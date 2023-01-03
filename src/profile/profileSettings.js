@@ -71,6 +71,7 @@ export class ProfileCourses extends Component {
           .then(() => {
               alert(`success`)
               this.setState({user: {university: this.state.uni}});
+              window.location.reload();
 
           })
           .catch((error) => {
@@ -83,6 +84,23 @@ export class ProfileCourses extends Component {
     e.preventDefault();
     console.log(e.target.files[0]);
     this.setState({imageToUpload: e.target.files[0]});
+  }
+
+  onDeleteAvatar = (e) => {
+    e.preventDefault();
+    axios.defaults.withCredentials = true;
+    axios
+        .delete('/user/avatar')
+        .then((response) => {
+          /**
+          history.push('/profile/User/' + this.state.user.username);
+           **/
+          window.location.reload();
+        })
+        .catch((error) => {
+          alert(`${error}`)
+        })
+    
   }
 
   onSubmitAvatar = (e) => {
@@ -151,8 +169,13 @@ export class ProfileCourses extends Component {
                 <Form onSubmit={this.onSubmitAvatar}>
                 <Form.Group as={Row} className="mb-3" controlId="formAvatar">
                   <Form.Label column sm="2">Avatar</Form.Label>
-                  <Col sm="8">
+                  <Col sm="6">
                   <Form.Control type="file" onChange={this.onChangeAvatar}/>
+                  </Col>
+                  <Col sm="2">
+                  <Button onClick={this.onDeleteAvatar} variant="danger" type="submitAvatar">
+                     Delete 
+                  </Button>
                   </Col>
                   <Col sm="2">
                   <Button variant="primary" type="submitAvatar">

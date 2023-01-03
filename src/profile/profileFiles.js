@@ -19,7 +19,7 @@ export class ProfileFiles extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: props.admin,
+            admin: this.props.admin,
             files: [],
         };
       console.log(this.state)

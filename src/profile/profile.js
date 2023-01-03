@@ -45,6 +45,12 @@ export class Profile extends Component {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res) => {
 
+        if (res.data.is_admin || res.data.is_superuser) {
+          this.setState({
+            admin: true,
+          })
+        }
+
         this.setState({
           name: res.data.username,
           email: res.data.email,
@@ -52,11 +58,6 @@ export class Profile extends Component {
           loading: false
         })
 
-        if (res.data.is_admin || res.data.is_superuser) {
-          this.setState({
-            admin: true,
-          })
-        }
 
       }).catch((error) => {
         this.setState({
@@ -66,6 +67,7 @@ export class Profile extends Component {
         //window.location.reload();
       });
 
+      /**
     axios.get('/user/avatar').then((res) => {
 
       this.setState({
@@ -80,6 +82,7 @@ export class Profile extends Component {
         //history.push(`/`);
         //window.location.reload();
       });
+      */
 
     } else {
       history.push(`/`);
@@ -123,15 +126,11 @@ export class Profile extends Component {
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
-                {
-                  () => { if (this.state.admin) {
-                    return (
+                {this.state.admin ?
                       <>
                       <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
                       <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
-                      </>
-                    )}
-                  }
+                      </> : <></>
                 }
               </div>
 
@@ -169,12 +168,12 @@ export class Profile extends Component {
                   }}>X</Button>
                   <AddCourse />
                 </div>
-                { () => { if (this.state.admin) {
-                  return (
+                {this.state.admin ?
+                      <>
                 <Button id="Courses-span" onClick={() => document.getElementById("new-course-div").hidden = false
                 }>Add course <IoAddCircleOutline /></Button>
-                  )}
-                }}
+                      </> : <></>
+                }
 
                 <ProfileCourses admin={this.state.admin}/>
               </div>
@@ -209,12 +208,13 @@ export class Profile extends Component {
                * users
                */}
 
-              { () => { if (this.state.admin) {
+              {this.state.admin ? <>
               <div className='child-right' id="Users-div" hidden={true}>
                 <h1>Users</h1>
-                <ProfileUsers />
+                <ProfileUsers admin={this.state.admin}/>
               </div>
-              }}}
+              </> : <></>
+              }
 
               {/** 
                * reviews

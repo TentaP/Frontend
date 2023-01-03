@@ -18,7 +18,6 @@ export class ProfileCourses extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: props.admin,
             courses: [],
         };
     }
@@ -30,7 +29,7 @@ export class ProfileCourses extends Component {
             window.location.reload();
         }
         axios.defaults.withCredentials = true;
-        if (this.state.admin) {
+        if (this.props.admin) {
           axios
               .get('/courses')
               .then((response) => {
@@ -109,13 +108,7 @@ export class ProfileCourses extends Component {
                                 <th>Course Name</th>
                                 <th>Course description</th>
                                 <th>Course university</th>
-                                { 
-                                  () => { if (this.state.admin) {
-                                      return (
-                                          <th>Delete</th>
-                                    )}
-                                  }
-                                }
+                                {this.props.admin ? <th>Delete</th> : null}
                             </tr>
                         </thead>
                         <tbody>
@@ -127,13 +120,7 @@ export class ProfileCourses extends Component {
                                             <td>{data.course_name}</td>
                                             <td>{data.description}</td>
                                             <td>{data.university}</td>
-                                            { 
-                                              () => { if (this.state.admin) {
-                                                return (
-                                                  <td><Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button></td>
-                                                )}
-                                              }
-                                            }
+                                            {this.props.admin ? <td><Button variant="danger" onClick={() => this.deleteConfirmation(data.id)}>Delete</Button></td> : null}
                                         </tr>
                                     )
                                 })

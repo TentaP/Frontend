@@ -23,8 +23,8 @@ export class ProfileCard extends Component {
           //src={`data:image/png;base64,${this.image}`} 
           //onError={(e) => { e.target.src = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" }}
           />
-          <Card.Title>{this.name}</Card.Title>
-          <Card.Text>{this.email}</Card.Text>
+          <Card.Title>{this.state.name}</Card.Title>
+          <Card.Text>{this.state.email}</Card.Text>
         </Card.Body>
       </Card>
     );

@@ -122,15 +122,11 @@ export class Profile extends Component {
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Courses">Courses</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Files">Files</Button>
                 <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Reviews">Reviews</Button>
-                {
-                  () => { if (this.state.admin) {
-                    return (
+                {this.state.admin ?
                       <>
                       <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Universities">Universities</Button>
                       <Button variant="light" size="lg" onClick={this.handleButtonclick} id="Users">Users</Button>
-                      </>
-                    )}
-                  }
+                      </> : <></>
                 }
               </div>
 
@@ -168,12 +164,12 @@ export class Profile extends Component {
                   }}>X</Button>
                   <AddCourse />
                 </div>
-                { () => { if (this.state.admin) {
-                  return (
+                {this.state.admin ?
+                      <>
                 <Button id="Courses-span" onClick={() => document.getElementById("new-course-div").hidden = false
                 }>Add course <IoAddCircleOutline /></Button>
-                  )}
-                }}
+                      </> : <></>
+                }
 
                 <ProfileCourses admin={this.state.admin}/>
               </div>

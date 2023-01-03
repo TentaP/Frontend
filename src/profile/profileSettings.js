@@ -71,6 +71,7 @@ export class ProfileCourses extends Component {
           .then(() => {
               alert(`success`)
               this.setState({user: {university: this.state.uni}});
+              window.location.reload();
 
           })
           .catch((error) => {

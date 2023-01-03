@@ -98,7 +98,6 @@ export class Profile extends Component {
 
   handleButtonclick = (event) => {
 
-    console.log(event.target.id)
     var divToShow = document.getElementById(`${event.target.id}-div`)
     divToShow.hidden = false
     if (event.target.id !== this.state.currentMenu) {

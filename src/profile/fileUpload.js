@@ -12,8 +12,12 @@ import {
     from 'mdb-react-ui-kit';
 
 import Button from 'react-bootstrap/Button';
-import Select from 'react-select'
 import Form from 'react-bootstrap/Form';
+import Cookies from "universal-cookie";
+
+
+const cookies = new Cookies();
+let cookie = cookies.get('jwt')
 
 
 
@@ -28,18 +32,40 @@ class FileUpload extends Component {
     };
 
     componentDidMount() {
-        axios.defaults.withCredentials = true;
-        axios
-            .get('/courses')
-            .then((response) => {
-                this.setState({ courses: response.data })
+        /**
+         * check if the browser have a cookie to use it as header when requesting user information
+         */
+        if (cookie) {
+            axios.defaults.withCredentials = true;
+            axios.get('/user').then((res) => {
+                if (res.data.is_admin || res.data.is_superuser) {
+                    axios
+                        .get('/courses')
+                        .then((response) => {
+                            this.setState({ courses: response.data })
 
-            })
-            .catch((error) => {
-                //history.push('/');
-                //window.location.reload();
-            })
+                        })
+                        .catch((error) => {
+                        })
+                } else {
+                    axios
+                        .get('user/courses')
+                        .then((response) => {
+                            this.setState({ courses: response.data })
+                        })
+                        .catch((error) => {
+                            //history.push('/');
+                            //window.location.reload();
+                        })
+
+                }
+            }).catch((error) => {
+            });
+        }
     }
+
+
+
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -47,10 +73,8 @@ class FileUpload extends Component {
         formData.append('file', this.state.file);
         formData.append('filename', this.state.filename);
         formData.append('course', this.state.course);
-        console.log(this.state.course)
 
         axios.post('/file', formData).then((response) => {
-            console.log(response.data);
             alert(`${this.state.filename} has been uploaded`)
             window.location.reload();
 

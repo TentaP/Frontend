@@ -32,7 +32,6 @@ class AddCourse extends Component {
 
 
         axios.post(`/courses/uni/${this.state.university}`, data).then((response) => {
-            console.log(response.data);
             alert(`${this.state.course_name} has been added to ${this.state.university}`)
             window.location.reload();
 

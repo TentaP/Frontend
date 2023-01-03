@@ -30,6 +30,7 @@ export class ProfileCourses extends Component {
       uni: this.props.user.university, //this is the current uni pk
       newEmail: "",
       imageToUpload: null,
+      password: "",
     };
   }
 
@@ -43,7 +44,6 @@ export class ProfileCourses extends Component {
     axios
       .get('/uni')
       .then((response) => {
-        console.log(this.state.uni);
         this.setState({ unis: response.data });
       })
       .catch((error) => {
@@ -82,7 +82,6 @@ export class ProfileCourses extends Component {
 
   onChangeAvatar = (e) => {
     e.preventDefault();
-    console.log(e.target.files[0]);
     this.setState({ imageToUpload: e.target.files[0] });
   }
 
@@ -131,6 +130,34 @@ export class ProfileCourses extends Component {
     }
 
   }
+
+  onChangePassword = (e) => {
+    e.preventDefault();
+    this.setState({ password: e.target.value });
+
+  }
+
+  onSubmitPassword = (e) => {
+    e.preventDefault();
+    let data = { "password": this.state.password }
+    axios.defaults.withCredentials = true;
+    axios
+      .put(`/reset_password`, data)
+      .then(() => {
+        alert(`Your password has been changed, plases login agin with the new password`)
+        cookies.remove('jwt', { path: '/' })
+        cookies.remove('jwt', { path: '/profile/user/:id' })
+        cookies.remove('jwt', { path: '/profile/admin/:id' })
+        cookies.remove('jwt', { path: '/universities/:uniName/:courseName' })
+        history.push("/login");
+        window.location.reload()
+      })
+      .catch((error) => {
+        alert(`${error}`)
+      })
+
+  }
+
 
 
   componentWillUnmount() {
@@ -187,6 +214,25 @@ export class ProfileCourses extends Component {
               <Form.Text className="text-muted">
                 Png files only
               </Form.Text>
+            </Form.Group>
+          </Form>
+
+          {/**
+                  change password
+          **/}
+          <Form onSubmit={this.onSubmitPassword}>
+            <Form.Group as={Row} className="mb-3" controlId="formAvatar">
+              <Form.Label column sm="2">new password</Form.Label>
+              <Col sm="6">
+                <Form.Control type="password" onChange={this.onChangePassword} />
+              </Col>
+              <Col sm="2">
+              </Col>
+              <Col sm="2">
+                <Button variant="primary" type="submitpassword">
+                  Submit
+                </Button>
+              </Col>
             </Form.Group>
           </Form>
         </div>

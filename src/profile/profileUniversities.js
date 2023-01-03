@@ -32,7 +32,6 @@ export class ProfileUniversities extends Component {
         axios
             .get('/uni')
             .then((response) => {
-                console.log(response.data)
                 this.setState({ uni: response.data })
             })
             .catch((error) => {

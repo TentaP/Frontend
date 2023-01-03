@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import './profile-style.css';
-import logo from '../../src/logo.jpg' // relative path to image 
+//import logo from '../../src/logo.jpg' // relative path to image 
 
 
 
-function ProfileCard(props) {
-  console.log(props);
+export class ProfileCard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          name: this.props.name,
+          email: this.props.email,
+          image: this.props.image,
+        };
+    }
 
   return (
     <Card bg="dark" text="white" id="profileCard">
@@ -20,6 +27,7 @@ function ProfileCard(props) {
       </Card.Body>
     </Card>
   );
+
 }
 
 export default ProfileCard;

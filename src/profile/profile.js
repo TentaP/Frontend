@@ -76,6 +76,7 @@ export class Profile extends Component {
 
       }).catch((error) => {
         this.setState({
+          avatar64: null,
           loading: true
         })
         //history.push(`/`);

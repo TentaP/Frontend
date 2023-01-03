@@ -45,6 +45,12 @@ export class Profile extends Component {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res) => {
 
+        if (res.data.is_admin || res.data.is_superuser) {
+          this.setState({
+            admin: true,
+          })
+        }
+
         this.setState({
           name: res.data.username,
           email: res.data.email,
@@ -52,11 +58,6 @@ export class Profile extends Component {
           loading: false
         })
 
-        if (res.data.is_admin || res.data.is_superuser) {
-          this.setState({
-            admin: true,
-          })
-        }
 
       }).catch((error) => {
         this.setState({

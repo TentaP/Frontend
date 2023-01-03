@@ -19,6 +19,7 @@ export class ProfileUsers extends Component {
         super(props);
         this.state = {
             users: [],
+            unis: [],
         };
     }
 
@@ -33,7 +34,6 @@ export class ProfileUsers extends Component {
         axios
             .get('/users')
             .then((response) => {
-                console.log(response.data)
                 this.setState({ users: response.data })
             })
             .catch((error) => {
@@ -41,7 +41,17 @@ export class ProfileUsers extends Component {
                 //window.location.reload();
             })
         }
+        axios
+            .get('/uni')
+            .then((response) => {
+              this.setState({ unis: response.data })
+            })
+            .catch((error) => {
+                //history.push('/');
+                //window.location.reload();
+            })
     }
+
 
 
 
@@ -184,6 +194,18 @@ export class ProfileUsers extends Component {
           alert(`${error}`)
         });
     }
+    
+    toUniName(id) {
+      return (
+        this.state.unis.map((uni) => (
+            uni['id'] === id ?
+              (uni.university_name)
+            :
+              null
+          ))
+        )
+    }
+
 
     componentWillUnmount() {
         clearInterval(this.interval);
@@ -192,7 +214,7 @@ export class ProfileUsers extends Component {
     render() {
 
         return (
-            <>
+          <>
                 <div>
                     <h1></h1>
 
@@ -219,7 +241,7 @@ export class ProfileUsers extends Component {
                                             <td>{data.id}</td>
                                             <td>{data.username}</td>
                                             <td>{data.email}</td>
-                                            <td>{data.university}</td>
+                                            <td>{this.toUniName(data.university)}</td>
                                             <td>{this.BooleanHandlar(data.is_admin)}</td>
                                             <td>{this.BooleanHandlar(data.is_superuser)}</td>
                                             <td>{this.BooleanHandlar(data.is_active)}</td>

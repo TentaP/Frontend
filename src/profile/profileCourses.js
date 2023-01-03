@@ -19,6 +19,7 @@ export class ProfileCourses extends Component {
         super(props);
         this.state = {
             courses: [],
+            unis : [],
         };
     }
 
@@ -52,6 +53,15 @@ export class ProfileCourses extends Component {
                   //window.location.reload();
               })
         }
+        axios
+            .get('/uni')
+            .then((response) => {
+              this.setState({ unis: response.data })
+            })
+            .catch((error) => {
+                //history.push('/');
+                //window.location.reload();
+            })
     }
 
 
@@ -87,6 +97,16 @@ export class ProfileCourses extends Component {
             })
     }
 
+    toUniName(id) {
+      return (
+        this.state.unis.map((uni) => (
+            uni['id'] === id ?
+              (uni.university_name)
+            :
+              null
+          ))
+        )
+    }
 
 
 
@@ -119,7 +139,7 @@ export class ProfileCourses extends Component {
                                             <td>{data.id}</td>
                                             <td>{data.course_name}</td>
                                             <td>{data.description}</td>
-                                            <td>{data.university}</td>
+                                            <td>{this.toUniName(data.university)}</td>
                                             {this.props.admin ? <td><Button variant="danger" onClick={() => this.deleteConfirmation(data.id)}>Delete</Button></td> : null}
                                         </tr>
                                     )

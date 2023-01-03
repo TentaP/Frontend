@@ -84,65 +84,106 @@ export class ProfileUsers extends Component {
     }
 
 
-  deleteUser(data) {
-    if (this.props.user.is_superuser && !data.is_superuser) {
-      return (
-        <Button variant="danger" onClick={() => this.deleteConfirmation(data.id)}>Delete</Button>
-      )
-    } else if (!data.is_superuser && !data.is_admin) {
-      return (
-        <Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button>
-      )
+    deleteUser(data) {
+      if (this.props.user.is_superuser && !data.is_superuser) {
+        return (
+          <Button variant="danger" onClick={() => this.deleteConfirmation(data)}>Delete</Button>
+        )
+      } else if (!data.is_superuser && !data.is_admin) {
+        return (
+          <Button variant="danger" onClick={() => this.deleteConfirmation(data)}>Delete</Button>
+        )
+      }
     }
-  }
 
-  makeAdmin(username) {
-    axios.defaults.withCredentials = true;
-    axios
-      .put(`/set_admin`, { "username": username })
-      .then(() => {
-        alert(`${username} is now admin`)
-        window.location.reload();
-      }).catch((error) => {
-        alert(`${error}`)
-      });
-  }
-
-  removeAdmin(username) {
-    axios.defaults.withCredentials = true;
-    axios
-      .put(`/remove_admin`, { "username": username })
-      .then(() => {
-        alert(`${username} is no longer admin`)
-        window.location.reload();
-      }).catch((error) => {
-        alert(`${error}`)
-      });
-  }
-
-  AdminTd(data) {
-    if (this.props.user.is_superuser && !this.props.user.is_admin && this.props.user.id === data.id) {
-      return (
-        <td><Button variant="info" onClick={() => this.makeAdmin(data.username)}>Make admin</Button></td>
-      )
-    } else if (this.props.user.is_superuser && this.props.user.is_admin && this.props.user.id === data.id) {
-      return (
-        <td><Button variant="danger" onClick={() => this.removeAdmin(data.username)}>Remove admin</Button></td>
-      )
-    } else if (!data.is_superuser && !data.is_admin) {
-      return (
-        <td><Button variant="info" onClick={() => this.makeAdmin(data.username)}>Make admin</Button></td>
-      )
-    } else if (!data.is_superuser && data.is_admin) {
-      return (
-        <td><Button variant="danger" onClick={() => this.removeAdmin(data.username)}>Remove admin</Button></td>
-      )
-    } else {
-      return (
-        <td></td>
-      )
+    makeAdmin(username) {
+      axios.defaults.withCredentials = true;
+      axios
+        .put(`/set_admin`, { "username": username })
+        .then(() => {
+          alert(`${username} is now admin`)
+          window.location.reload();
+        }).catch((error) => {
+          alert(`${error}`)
+        });
     }
-  }
+
+    removeAdmin(username) {
+      axios.defaults.withCredentials = true;
+      axios
+        .put(`/remove_admin`, { "username": username })
+        .then(() => {
+          alert(`${username} is no longer admin`)
+          window.location.reload();
+        }).catch((error) => {
+          alert(`${error}`)
+        });
+    }
+
+    AdminTd(data) {
+      if (this.props.user.is_superuser && !this.props.user.is_admin && this.props.user.id === data.id) {
+        return (
+          <td><Button variant="info" onClick={() => this.makeAdmin(data.username)}>Make admin</Button></td>
+        )
+      } else if (this.props.user.is_superuser && this.props.user.is_admin && this.props.user.id === data.id) {
+        return (
+          <td><Button variant="danger" onClick={() => this.removeAdmin(data.username)}>Remove admin</Button></td>
+        )
+      } else if (!data.is_superuser && !data.is_admin) {
+        return (
+          <td><Button variant="info" onClick={() => this.makeAdmin(data.username)}>Make admin</Button></td>
+        )
+      } else if (!data.is_superuser && data.is_admin) {
+        return (
+          <td><Button variant="danger" onClick={() => this.removeAdmin(data.username)}>Remove admin</Button></td>
+        )
+      } else {
+        return (
+          <td></td>
+        )
+      }
+    }
+
+    SuperUserTd(data) {
+      if (this.props.user.is_superuser && !data.is_superuser ) {
+        return (
+          <td><Button variant="info" onClick={() => this.confirmMakeSuperUser(data)}>Confirm</Button></td>
+        )
+      } else {
+        return (
+          <td></td>
+        )
+      }
+    }
+
+    confirmMakeSuperUser(data) {
+        confirmAlert({
+            title: 'Irreversible action',
+            message: `Are you SURE you want to make ${data.username} a superuser?`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.makeSuperUser(data)
+                },
+                {
+                    label: 'No',
+                    onClick: () => alert('Click No')
+                }
+            ]
+        });
+    };
+
+    makeSuperUser(data) {
+      axios.defaults.withCredentials = true;
+      axios
+        .put(`/set_superuser`, { "username": data.username })
+        .then(() => {
+          alert(`${data.username} is now superuser`)
+          window.location.reload();
+        }).catch((error) => {
+          alert(`${error}`)
+        });
+    }
 
     componentWillUnmount() {
         clearInterval(this.interval);
@@ -165,7 +206,8 @@ export class ProfileUsers extends Component {
                                 <th>Is admin</th>
                                 <th>Is superuser</th>
                                 <th>Is active</th>
-                              {this.props.user.is_superuser && <th>M/R Admin</th>} {/* only superuser */} 
+                                {this.props.user.is_superuser && <th>M/R Admin</th>} {/* only superuser */} 
+                                {this.props.user.is_superuser && <th>Make superUser</th>} {/* only superuser */} 
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -182,6 +224,7 @@ export class ProfileUsers extends Component {
                                             <td>{this.BooleanHandlar(data.is_superuser)}</td>
                                             <td>{this.BooleanHandlar(data.is_active)}</td>
                                             {this.props.user.is_superuser && this.AdminTd(data)} {/* only superuser */}
+                                            {this.props.user.is_superuser && this.SuperUserTd(data)} {/* only superuser */}
                                             <td>{this.deleteUser(data)}</td>
 
                                         </tr>

@@ -6,28 +6,29 @@ import './profile-style.css';
 
 
 export class ProfileCard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          name: this.props.name,
-          email: this.props.email,
-          image: this.props.image,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: this.props.name,
+      email: this.props.email,
+      image: this.props.image,
+    };
+  }
 
-  return (
-    <Card bg="dark" text="white" id="profileCard">
-      <Card.Body>
-        <Card.Img variant="top" fluid="true" 
-          //src={`data:image/png;base64,${props.image}`} 
-          //onError={(e) => {e.target.img=logo}}/>
-          src={logo}/>
-        <Card.Title>{props.name}</Card.Title>
-        <Card.Text>{props.email}</Card.Text>
-      </Card.Body>
-    </Card>
-  );
-
+  render() {
+    return (
+      <Card bg="dark" text="white" id="profileCard">
+        <Card.Body>
+          <Card.Img variant="top" fluid="true"
+          //src={`data:image/png;base64,${this.image}`} 
+          //onError={(e) => { e.target.src = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" }}
+          />
+          <Card.Title>{this.name}</Card.Title>
+          <Card.Text>{this.email}</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  }
 }
 
 export default ProfileCard;

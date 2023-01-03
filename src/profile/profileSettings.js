@@ -22,40 +22,40 @@ let cookie = cookies.get('jwt')
 
 
 export class ProfileCourses extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          user: this.props.user,
-          unis: [],
-          uni: this.props.user.university, //this is the current uni pk
-          newEmail: "",
-          imageToUpload: null,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: this.props.user,
+      unis: [],
+      uni: this.props.user.university, //this is the current uni pk
+      newEmail: "",
+      imageToUpload: null,
+    };
+  }
 
 
-    componentDidMount() {
-        if (!cookie) {
-            history.push('/');
-            window.location.reload();
-        }
-        axios.defaults.withCredentials = true;
-        axios
-            .get('/uni')
-            .then((response) => {
-                console.log(this.state.uni);
-              this.setState({ unis: response.data});
-            })
-            .catch((error) => {
-                //history.push('/');
-                //window.location.reload();
-            })
-        
+  componentDidMount() {
+    if (!cookie) {
+      history.push('/');
+      window.location.reload();
     }
+    axios.defaults.withCredentials = true;
+    axios
+      .get('/uni')
+      .then((response) => {
+        console.log(this.state.uni);
+        this.setState({ unis: response.data });
+      })
+      .catch((error) => {
+        //history.push('/');
+        //window.location.reload();
+      })
+
+  }
 
   onChangeUniversity = (e) => {
     e.preventDefault();
-    this.setState({uni: e.target.value});
+    this.setState({ uni: e.target.value });
 
   }
 
@@ -65,42 +65,42 @@ export class ProfileCourses extends Component {
       alert("No change");
       return;
     } else {
-      axios.defaults.withCredentials = true; 
+      axios.defaults.withCredentials = true;
       axios
-          .put(`/user/uni/${this.state.uni}`)
-          .then(() => {
-              alert(`success`)
-              this.setState({user: {university: this.state.uni}});
-              window.location.reload();
+        .put(`/user/uni/${this.state.uni}`)
+        .then(() => {
+          alert(`success`)
+          this.setState({ user: { university: this.state.uni } });
+          window.location.reload();
 
-          })
-          .catch((error) => {
-              alert(`${error}`)
-          })
+        })
+        .catch((error) => {
+          alert(`${error}`)
+        })
     }
   }
 
   onChangeAvatar = (e) => {
     e.preventDefault();
     console.log(e.target.files[0]);
-    this.setState({imageToUpload: e.target.files[0]});
+    this.setState({ imageToUpload: e.target.files[0] });
   }
 
   onDeleteAvatar = (e) => {
     e.preventDefault();
     axios.defaults.withCredentials = true;
     axios
-        .delete('/user/avatar')
-        .then((response) => {
-          /**
-          history.push('/profile/User/' + this.state.user.username);
-           **/
-          window.location.reload();
-        })
-        .catch((error) => {
-          alert(`${error}`)
-        })
-    
+      .delete('/user/avatar')
+      .then((response) => {
+        /**
+        history.push('/profile/User/' + this.state.user.username);
+         **/
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(`${error}`)
+      })
+
   }
 
   onSubmitAvatar = (e) => {
@@ -111,86 +111,88 @@ export class ProfileCourses extends Component {
       formData.append('avatar', this.state.imageToUpload);
       axios.defaults.withCredentials = true;
       axios
-          .post('/user/avatar', formData , {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          })
-          .then((response) => {
-            /**
-            history.push('/profile/User/' + this.state.user.username);
-             **/
-            window.location.reload();
-          })
-          .catch((error) => {
-            alert(`${error}`)
-          })
+        .post('/user/avatar', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then((response) => {
+          /**
+          history.push('/profile/User/' + this.state.user.username);
+           **/
+          window.location.reload();
+        })
+        .catch((error) => {
+          alert(`${error}`)
+        })
 
     } else {
       alert("File type not supported");
     }
 
-  } 
+  }
 
 
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
-    render() {
+  render() {
 
-        return (
-            <>
-                <div>
-                <Form onSubmit={this.onSubmitUniversity}>
-                  <Form.Group as={Row} className="mb-3" controlId="formUniSelect">
-                    <Form.Label column sm="2">University</Form.Label>
-                    <Col sm="8">
-                    <Form.Select 
-                      value={this.state.uni}
-                      onChange={this.onChangeUniversity}
-                      >
-                      {this.state.unis.map((uni) => (
-                        <option key={uni.university_name} value={uni.id}>{uni.university_name}</option>
-                      ))}
-                      </Form.Select>
-                    </Col>
-                    <Col sm="2">
-                    <Button variant="primary" type="submitUni">
-                      Submit
-                    </Button>
-                    </Col>
-                  </Form.Group>
-                </Form>
+    return (
+      <>
+        <div>
+          <Form onSubmit={this.onSubmitUniversity}>
+            <Form.Group as={Row} className="mb-3" controlId="formUniSelect">
+              <Form.Label column sm="2">University</Form.Label>
+              <Col sm="8">
+                <Form.Select
+                  value={this.state.uni}
+                  onChange={this.onChangeUniversity}
+                >
+                  <option value={null}>select a university</option>
 
-                {/**
+                  {this.state.unis.map((uni) => (
+                    <option key={uni.university_name} value={uni.id}>{uni.university_name}</option>
+                  ))}
+                </Form.Select>
+              </Col>
+              <Col sm="2">
+                <Button variant="primary" type="submitUni">
+                  Submit
+                </Button>
+              </Col>
+            </Form.Group>
+          </Form>
+
+          {/**
                   avatar submit low priority
                   **/}
-                <Form onSubmit={this.onSubmitAvatar}>
-                <Form.Group as={Row} className="mb-3" controlId="formAvatar">
-                  <Form.Label column sm="2">Avatar</Form.Label>
-                  <Col sm="6">
-                  <Form.Control type="file" onChange={this.onChangeAvatar}/>
-                  </Col>
-                  <Col sm="2">
-                  <Button onClick={this.onDeleteAvatar} variant="danger" type="submitAvatar">
-                     Delete 
-                  </Button>
-                  </Col>
-                  <Col sm="2">
-                  <Button variant="primary" type="submitAvatar">
-                    Submit
-                  </Button>
-                  </Col>
-                  <Form.Text className="text-muted">
-                    Png files only
-                  </Form.Text>
-                </Form.Group>
-              </Form>
-                </div>
-            </>
-        )
-    }
+          <Form onSubmit={this.onSubmitAvatar}>
+            <Form.Group as={Row} className="mb-3" controlId="formAvatar">
+              <Form.Label column sm="2">Avatar</Form.Label>
+              <Col sm="6">
+                <Form.Control type="file" onChange={this.onChangeAvatar} />
+              </Col>
+              <Col sm="2">
+                <Button onClick={this.onDeleteAvatar} variant="danger" type="submitAvatar">
+                  Delete
+                </Button>
+              </Col>
+              <Col sm="2">
+                <Button variant="primary" type="submitAvatar">
+                  Submit
+                </Button>
+              </Col>
+              <Form.Text className="text-muted">
+                Png files only
+              </Form.Text>
+            </Form.Group>
+          </Form>
+        </div>
+      </>
+    )
+  }
 }
 
 export default ProfileCourses;

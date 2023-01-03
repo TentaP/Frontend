@@ -32,6 +32,7 @@ export class Profile extends Component {
       avatar64: null,
       currentMenu: "",
       admin: false,
+      superUser: false,
       loading: true,
       append: null,
     }
@@ -45,7 +46,12 @@ export class Profile extends Component {
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res) => {
 
-        if (res.data.is_admin || res.data.is_superuser) {
+        if (res.data.is_superuser) {
+          this.setState({
+            admin: true,
+            superUser: true,
+          })
+        } else if (res.data.is_admin) {
           this.setState({
             admin: true,
           })
@@ -211,7 +217,7 @@ export class Profile extends Component {
               {this.state.admin ? <>
               <div className='child-right' id="Users-div" hidden={true}>
                 <h1>Users</h1>
-                <ProfileUsers admin={this.state.admin}/>
+                <ProfileUsers user={this.state.user}/>
               </div>
               </> : <></>
               }

@@ -67,6 +67,7 @@ export class Profile extends Component {
         //window.location.reload();
       });
 
+      /**
     axios.get('/user/avatar').then((res) => {
 
       this.setState({
@@ -80,6 +81,7 @@ export class Profile extends Component {
         //history.push(`/`);
         //window.location.reload();
       });
+      */
 
     } else {
       history.push(`/`);

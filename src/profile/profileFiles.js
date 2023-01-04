@@ -21,6 +21,7 @@ export class ProfileFiles extends Component {
         this.state = {
             admin: this.props.admin,
             files: [],
+            users: [],
         };
     }
 
@@ -46,6 +47,15 @@ export class ProfileFiles extends Component {
               .get('/user/files')
               .then((response) => {
                   this.setState({ files: response.data })
+              })
+              .catch((error) => {
+                  //history.push('/');
+                  //window.location.reload();
+              })
+          axios
+              .get('/users')
+              .then((response) => {
+                  this.setState({ users: response.data })
               })
               .catch((error) => {
                   //history.push('/');
@@ -101,6 +111,17 @@ export class ProfileFiles extends Component {
         clearInterval(this.interval);
     }
 
+    toUserName(id) {
+      return (
+        this.state.users.map((user) => (
+            user['id'] === id ?
+              (user.username)
+            :
+              null
+          ))
+        )
+    }
+
     render() {
         return (
             <>
@@ -126,7 +147,7 @@ export class ProfileFiles extends Component {
                                         <td>{data.file_ext}</td>
                                         <td>{(data.date_of_uploading).slice(0, 10)}</td>
                                         <td>{this.has_solutions(data.has_solutions)}</td>
-                                        <td>{data.uploaded_by_id}</td>
+                                        <td>{this.toUserName(data.uploaded_by_id)}</td>
                                         <td><Button onClick={() => this.deleteConfirmation(data.id)} type={"link"}>Delete</Button></td>
                                     </tr>
                                 )

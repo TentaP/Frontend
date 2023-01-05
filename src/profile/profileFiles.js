@@ -52,6 +52,8 @@ export class ProfileFiles extends Component {
                   //history.push('/');
                   //window.location.reload();
               })
+
+        }
           axios
               .get('/users')
               .then((response) => {
@@ -61,8 +63,6 @@ export class ProfileFiles extends Component {
                   //history.push('/');
                   //window.location.reload();
               })
-
-        }
     }
 
 

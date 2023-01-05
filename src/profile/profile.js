@@ -180,7 +180,7 @@ export class Profile extends Component {
                       </> : <></>
                 }
 
-                <ProfileCourses admin={this.state.admin}/>
+                <ProfileCourses user={this.state.user}/>
               </div>
 
               {/** 

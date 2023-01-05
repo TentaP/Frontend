@@ -55,14 +55,14 @@ export class ProfileUsers extends Component {
 
 
 
-    deleteConfirmation(id) {
+    deleteConfirmation(user) {
         confirmAlert({
             title: 'Confirm to submit',
-            message: `Are you sure to delete ${id}`,
+            message: `Are you sure to delete ${user.username}?`,
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => this.deleteFunction(id)
+                    onClick: () => this.deleteFunction(user.id)
                 },
                 {
                     label: 'No',
@@ -95,7 +95,11 @@ export class ProfileUsers extends Component {
 
 
     deleteUser(data) {
-      if (this.props.user.is_superuser && !data.is_superuser) {
+      if (data.id === this.props.user.id) {
+        return (
+          <Button variant="danger" onClick={() => this.deleteConfirmation(data)}>Delete</Button>
+        )
+      } else if (this.props.user.is_superuser && !data.is_superuser) {
         return (
           <Button variant="danger" onClick={() => this.deleteConfirmation(data)}>Delete</Button>
         )

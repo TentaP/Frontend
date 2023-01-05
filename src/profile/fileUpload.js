@@ -47,7 +47,7 @@ class FileUpload extends Component {
                         })
                         .catch((error) => {
                         })
-                } else {
+                } else if (res.data.university !== null) {
                     axios
                         .get('user/courses')
                         .then((response) => {
@@ -58,6 +58,8 @@ class FileUpload extends Component {
                             //window.location.reload();
                         })
 
+                } else {
+                  return
                 }
             }).catch((error) => {
             });

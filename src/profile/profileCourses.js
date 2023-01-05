@@ -30,7 +30,7 @@ export class ProfileCourses extends Component {
             window.location.reload();
         }
         axios.defaults.withCredentials = true;
-        if (this.props.admin) {
+        if (this.props.user.is_superuser || this.props.user.is_admin) {
           axios
               .get('/courses')
               .then((response) => {
@@ -40,7 +40,7 @@ export class ProfileCourses extends Component {
                   //history.push('/');
                   //window.location.reload();
               })
-        } else { // change to get courses for user through courses by uni
+        } else if (this.props.user.university !== null) {
           axios
               .get('user/courses')
               .then((response) => {
@@ -50,6 +50,8 @@ export class ProfileCourses extends Component {
                   //history.push('/');
                   //window.location.reload();
               })
+        } else {
+          return
         }
         axios
             .get('/uni')

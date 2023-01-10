@@ -5,11 +5,11 @@ import { BrowserRouter as Router} from 'react-router-dom';
 import axios from 'axios';
 import history from './history';
 import Cookies from "universal-cookie";
-
+import env from './utils/env.js'
 
 const cookies = new Cookies();
 let cookie = cookies.get('jwt');
-axios.defaults.baseURL = 'http://localhost:8000/api';
+axios.defaults.baseURL = env.API_URL;
 axios.defaults.headers.common = {'Authorization': `${cookie}`}
 
 

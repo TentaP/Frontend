@@ -11,10 +11,13 @@ import {
 import './login-style.css'
 import Button from 'react-bootstrap/Button';
 import NavBar from '../navbar/navbar';
+import useWebSocket from 'react-use-websocket';
+import { w3websocket as W3WebSocket } from "websocket";
 import axios from 'axios';
 import history from '../history';
 import $ from 'jquery';
 import Cookies from "universal-cookie";
+import env from '../utils/env.js'
 
 
 const cookies = new Cookies();
@@ -35,12 +38,17 @@ export class Login extends Component {
 
   }
 
+  ws1 = new WebSocket(env.WS_URL);
 
   componentDidMount() {
     /**
      * check if the browser have a cookie to use it as header when requesting user information
      */
     if (cookie) {
+      this.ws1.onopen = () => {
+        console.log('WebSocket Client 1 Connected');
+      };
+
       axios.defaults.withCredentials = true;
       axios.get('/user').then((res) => {
         if (res.data.super_user || res.data.admin) {
@@ -52,6 +60,9 @@ export class Login extends Component {
         }
       }).catch((error) => {
       });
+      this.ws1.onmessage = (message) => {
+        console.log('WebSocket Client Connected\n'+ message);
+      };
     }
   }
 
